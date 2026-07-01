@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programa CEO & Gestión de Pauta — Aldana Alomas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:ital,wght@1,500&family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Inter:wght@400;600&family=Outfit:wght@400;500;600;700;800&family=Sacramento&display=swap" rel="stylesheet">
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  color: #18181B;
+  background: #F4F1E9;
+  line-height: 1.6;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* ===== UTILITIES ===== */
+.container { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
+.section-padding { padding: 96px 0; }
+.text-center { text-align: center; }
+.text-muted { color: #A09E98; }
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-block;
+  padding: 16px 32px;
+  border-radius: 48px;
+  font-weight: 700;
+  font-size: 17px;
+  cursor: pointer;
+  border: none;
+  font-family: 'Outfit', sans-serif;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+.btn-primary {
+  background: #A53C4B;
+  color: #fff;
+}
+.btn-primary:hover { background: #8E3340; }
+.btn-primary:focus { outline: 2px solid #A53C4B; outline-offset: 2px; }
+
+/* CTA Pulse Animation */
+@keyframes pulse-cta-light {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(165,60,75,0.35); }
+  50% { transform: scale(1.03); box-shadow: 0 0 0 10px rgba(165,60,75,0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(165,60,75,0); }
+}
+.btn-cta {
+  animation: pulse-cta-light 2s infinite;
+}
+.btn-cta:hover {
+  animation: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(244,241,233,0.97);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(24,24,27,0.06);
+  padding: 16px 0;
+  transition: box-shadow 0.3s;
+}
+.navbar.scrolled { box-shadow: 0 1px 8px rgba(0,0,0,0.08); }
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar-brand {
+  color: #18181B;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+}
+.navbar .btn { padding: 10px 24px; font-size: 14px; }
+.navbar-links { display: flex; align-items: center; gap: 24px; }
+.navbar-links a.nav-link { color: #18181B; font-weight: 600; font-size: 14px; transition: color 0.2s; }
+.navbar-links a.nav-link:hover { color: #2D6650; }
+
+/* ===== ANIMATIONS ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== REVEAL ON SCROLL (reusable) ===== */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
+  .cupos-numeral { animation: none !important; }
+  .cupos-loop::before { animation: none !important; }
+}
+
+/* ===== CUPOS BLOCK ===== */
+.cupos-block {
+  text-align: center;
+  padding: 56px 32px;
+  max-width: 480px;
+  margin: 0 auto 24px;
+}
+.cupos-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8B6F47;
+  margin-bottom: 28px;
+}
+.cupos-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 36px;
+}
+.cupos-numeral {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(110px, 16vw, 190px);
+  font-weight: 700;
+  color: #173929;
+  line-height: 0.85;
+  letter-spacing: -0.03em;
+}
+.cupos-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 2px;
+}
+.cupos-text span {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.cupos-text span:first-child { color: #44403C; }
+.cupos-text span:last-child { color: #8B6F47; }
+.cupos-bar {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  height: 5px;
+  background: #E8E0D0;
+  border-radius: 999px;
+  margin: 0 auto 40px;
+  overflow: hidden;
+}
+.cupos-bar-fill {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  width: 78%;
+  background: #2D6650;
+  border-radius: 999px;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+.cupos-bar-fill.animated {
+  animation: fillIn .9s ease-out both;
+}
+.cupos-bar-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+  animation: shimmer 2.4s ease-in-out 2;
+}
+@keyframes fillIn {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes shimmer {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(320%); }
+}
+/* ===== CUPOS LOOP (bruma continua) ===== */
+.cupos-loop {
+  position: relative;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(31,61,42,.15);
+  overflow: hidden;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto 40px;
+}
+.cupos-loop::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -35%;
+  height: 100%;
+  width: 35%;
+  border-radius: 999px;
+  background: #2D6650;
+  animation: bruma-travel 1.8s ease-in-out infinite;
+}
+@keyframes bruma-travel {
+  0% { left: -35%; }
+  100% { left: 100%; }
+}
+.cupos-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #A53C4B;
+  color: #F4F1E9;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  padding: 17px 40px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.25s ease;
+}
+.cupos-cta:hover { background: #8C3240; }
+.cupos-cta .cta-arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+.cupos-cta:hover .cta-arrow { transform: translateX(4px); }
+@media (max-width: 768px) {
+  .cupos-block { padding: 40px 20px; }
+  .cupos-loop { max-width: 100%; }
+  .cupos-cta { width: 100%; justify-content: center; }
+}
+
+/* ===== SECTION 1: HERO ===== */
+.hero {
+  background: #F4F1E9;
+  padding: 128px 0 0;
+  color: #18181B;
+  overflow: visible;
+}
+.hero .container {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  max-width: 1140px;
+}
+.hero-content {
+  flex: 0 0 50%;
+  padding: 48px 0 64px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero-visual {
+  flex: 1;
+  position: relative;
+  overflow: visible;
+  align-self: center;
+}
+
+/* ===== DOLOR CARDS HOVER ===== */
+.dolor-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 14px 36px rgba(24,24,27,0.14) !important;
+  border-top-color: #8A2F3D !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+/* ===== HERO BADGES ===== */
+@keyframes badge-float-1 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes badge-float-2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+@keyframes badge-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-badge {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(251,249,244,0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  font-size: 12px;
+  font-weight: 600;
+  color: #18181B;
+  white-space: nowrap;
+  z-index: 2;
+  opacity: 0;
+}
+.hero-badge svg {
+  flex-shrink: 0;
+}
+.hero-badge.visible {
+  opacity: 1;
+}
+.hero-badge-1 {
+  top: 16px;
+  left: -20px;
+  font-size: 14px;
+  padding: 10px 17px;
+  animation: badge-float-1 4s ease-in-out infinite, badge-fade-in 0.6s 0.3s ease-out forwards;
+}
+.hero-badge-2 {
+  top: 68%;
+  right: -16px;
+  font-size: 14px;
+  padding: 10px 17px;
+  animation: badge-float-2 4.5s ease-in-out infinite, badge-fade-in 0.6s 0.6s ease-out forwards;
+}
+
+/* ===== TOOL PILLS ===== */
+.tool-pill {
+  background: white;
+  border: 1px solid #d6d3cc;
+  border-radius: 48px;
+  padding: 12px 24px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #18181B;
+  font-size: 14px;
+}
+
+/* ===== LOGO SCROLL ===== */
+@keyframes scroll-logos {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+#logo-track:hover {
+  animation-play-state: paused;
+}
+
+/* ===== FAQ ===== */
+.faq-item {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.faq-item:hover {
+  background: rgba(255,255,255,0.08);
+}
+.faq-item.active {
+  background: rgba(45,102,80,0.15);
+  border-color: rgba(45,102,80,0.4);
+}
+.faq-question {
+  width: 100%;
+  padding: 24px;
+  background: none;
+  border: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color 0.2s;
+}
+.faq-icon {
+  font-size: 22px;
+  font-weight: 300;
+  color: #2D6650;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+.faq-item.active .faq-icon { transform: rotate(45deg); }
+.faq-answer {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+.faq-item.active .faq-answer {
+  max-height: 500px;
+  opacity: 1;
+}
+.faq-answer p {
+  padding: 0 24px 24px;
+  color: rgba(255,255,255,0.75);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* ===== FORM OPTIONS ===== */
+.form-step {
+  display: none;
+  animation: fadeInUp 0.4s ease;
+}
+.form-step.active { display: block; }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.form-option {
+  display: block;
+  width: 100%;
+  padding: 16px 24px;
+  margin-bottom: 10px;
+  background: #2D2D32;
+  border: 1px solid rgba(244,241,233,0.12);
+  border-radius: 12px;
+  color: #F4F1E9;
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+  text-align: left;
+}
+.form-option:hover {
+  background: rgba(45,102,80,0.15);
+  border-color: #3D8868;
+  box-shadow: 0 0 0 1px rgba(45,102,80,0.2);
+}
+.form-option.selected {
+  background: rgba(45,102,80,0.2);
+  border-color: #2D6650;
+  box-shadow: 0 0 0 1px #2D6650;
+}
+.form-result {
+  display: none;
+  text-align: center;
+  animation: fadeInUp 0.5s ease;
+}
+.form-result.active { display: block; }
+.step-dot.active { background: #3D8868 !important; box-shadow: 0 0 6px rgba(61,136,104,0.4); }
+.step-dot.completed { background: #2D6650 !important; }
+
+/* Service form */
+.svc-form-step { display: none; animation: fadeInUp 0.4s ease; }
+.svc-form-step.active { display: block; }
+.svc-form-result { display: none; text-align: center; animation: fadeInUp 0.5s ease; }
+.svc-form-result.active { display: block; }
+.svc-step-dot.active { background: #A53C4B !important; box-shadow: 0 0 6px rgba(165,60,75,0.4); }
+.svc-step-dot.completed { background: #8E3340 !important; }
+
+/* ===== CARD HOVER EFFECTS ===== */
+.pq-hover-card:hover,
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+}
+
+/* ===== RESPIRO vs DENSA RHYTHM ===== */
+.section-respiro { padding: 128px 32px; }
+.section-densa { padding: 72px 32px; }
+
+/* ===== FAQ V2 (2-COL LAYOUT) ===== */
+.faq2-item {
+  border-bottom: 1px solid rgba(24,24,27,0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.faq2-item:last-child { border-bottom: none; }
+.faq2-question {
+  width: 100%;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #18181B;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color 0.2s;
+}
+.faq2-question:hover { color: #2D6650; }
+.faq2-icon {
+  font-size: 20px;
+  font-weight: 300;
+  color: #2D6650;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+.faq2-item.active .faq2-icon { transform: rotate(45deg); }
+.faq2-answer {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+.faq2-item.active .faq2-answer {
+  max-height: 500px;
+  opacity: 1;
+}
+.faq2-answer p {
+  padding: 0 0 20px;
+  color: #44403C;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* ===== HERO DASHBOARD ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  /* --- Global --- */
+  html, body { overflow-x: hidden; }
+  .section-padding { padding: 64px 0; }
+  .section-respiro { padding: 64px 20px; }
+  .section-densa { padding: 48px 20px; }
+  .container { padding: 0 20px; }
+
+  /* --- Hero --- */
+  .hero { padding: 96px 0 48px; overflow: hidden; }
+  .hero .container { flex-direction: column; text-align: center; gap: 32px; }
+  .hero-content { flex: none; padding: 0; }
+  .hero-content h1 { font-size: 36px !important; }
+  .hero-content p { font-size: 18px !important; max-width: 100% !important; }
+  .hero-content > div { justify-content: center; }
+  .hero-visual { flex: none; width: 100%; max-width: 300px; margin: 0 auto; overflow: hidden; }
+  .hero-badge { font-size: 11px; padding: 6px 10px; gap: 6px; }
+  .hero-badge-1 { left: 0; top: 12px; font-size: 11px; padding: 6px 10px; }
+  .hero-badge-2 { right: 0; top: 65%; font-size: 11px; padding: 6px 10px; }
+  .btn { padding: 14px 28px; font-size: 16px; }
+
+  /* --- Fork: 2col → 1col --- */
+  section div[style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* --- Sección Servicio --- */
+  #servicio { padding: 64px 20px !important; }
+  #servicio h2 { font-size: 28px !important; }
+  #servicio div[style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  #formulario-servicio { padding: 64px 20px !important; }
+  #formulario-servicio div[style*="padding:40px 36px"] {
+    padding: 24px 18px !important;
+  }
+
+  /* --- Sección Video Explicativo --- */
+  .ceo-video { max-width: 100% !important; }
+
+  /* --- Cards de dolor: 3col → 1col --- */
+  .dolor-card { padding: 28px !important; }
+
+
+  /* --- Testimonios --- */
+  .caso-block { flex-direction: column !important; }
+  .tt-quote { font-size: 26px !important; }
+  .caso-block .testi-video { max-width: 300px; margin: 0 auto; }
+  .caso-block > div:first-child { flex: none !important; width: 100% !important; }
+
+  /* --- FAQ --- */
+  .faq2-grid { grid-template-columns: 1fr !important; }
+
+  /* --- Firma / Bio --- */
+  .firma-section { padding: 48px 24px !important; }
+
+  /* --- Títulos inline: escalar para mobile --- */
+  /* 64px → 32px */
+  .cta-reveal { font-size: 32px !important; }
+  #para-quien > div > h2 { font-size: 32px !important; }
+  /* 56px → 30px */
+  #modulos > div > h2 { font-size: 30px !important; }
+  #formulario > div > h2 { font-size: 30px !important; }
+  /* 48px → 28px */
+  #problema > div > h2 { font-size: 28px !important; }
+  #faq .faq2-grid h2 { font-size: 28px !important; }
+  /* 44px → 26px */
+  #solucion h2 { font-size: 26px !important; }
+  #sobre h2 { font-size: 26px !important; }
+  #resultados h2 { font-size: 26px !important; }
+  /* Subtítulos 22px → 17px */
+  #modulos > div > p { font-size: 17px !important; }
+  #formulario > div > p { font-size: 17px !important; }
+  #para-quien > div > p { font-size: 17px !important; }
+
+  /* --- Cards de dolor: 3col → 1col --- */
+  #problema div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* --- ¿Para vos?: 2col → 1col --- */
+  #para-quien div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* --- Bio "Soy Aldana": horizontal → vertical --- */
+  #sobre div[style*="display:flex;gap:48px"] {
+    flex-direction: column !important;
+  }
+  #sobre img[alt="Aldana Alomas"] {
+    width: 100% !important;
+    max-width: 280px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+  }
+  #sobre div[style*="flex-shrink:0;text-align:center"] {
+    text-align: center !important;
+  }
+  #sobre .fade-in[style*="padding:48px"] {
+    padding: 28px 20px !important;
+  }
+
+  /* --- CTA Final: botón --- */
+  .cta-reveal + a[href="#formulario"] {
+    font-size: 17px !important;
+    padding: 14px 32px !important;
+  }
+
+  /* --- Formulario: padding y Calendly --- */
+  #formulario { padding: 64px 20px !important; }
+  #formulario div[style*="padding:40px 36px"] {
+    padding: 24px 18px !important;
+  }
+  .calendly-inline-widget {
+    min-width: 280px !important;
+  }
+
+  /* --- Navbar mobile --- */
+  .navbar-brand { white-space: nowrap; font-size: 15px; }
+  .navbar-links .btn.btn-primary { display: none; }
+  .navbar-links a.nav-link { font-size: 13px; }
+  .hero { padding-top: 110px !important; }
+
+  /* --- Sticky bar: compactar --- */
+  #sticky-bar {
+    padding: 10px 16px !important;
+  }
+  #sticky-bar > span {
+    font-size: 14px !important;
+  }
+  #sticky-bar a {
+    font-size: 13px !important;
+    padding: 8px 14px !important;
+  }
+
+  /* --- Video → botón "Aplicar": reducir hueco --- */
+  #solucion + section {
+    padding-top: 16px !important;
+  }
+
+  /* --- Footer: espacio para sticky bar --- */
+  footer {
+    padding-bottom: 80px !important;
+  }
+}
+
+.testi-video{ flex:0 0 auto; width:100%; max-width:340px; }
+.testi-video video{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:14px;
+  background:#1F1F1B;
+}
+
+.testi-text{ flex:1; padding:8px 0; }
+.tt-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:32px;line-height:1.14;color:#1F3D2A;margin:0 0 28px;}
+.tt-firma{font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:#1F1F1B;margin:0 0 4px;display:flex;align-items:center;gap:10px;}
+.tt-firma::before{content:"";width:22px;height:2px;background:#A53D2A;display:inline-block;flex:none;}
+.tt-brand{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:#6E655A;margin:0 0 4px 32px;}
+.tt-ig{display:inline-flex;align-items:center;gap:6px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:#2D6650;text-decoration:none;margin:0 0 24px 32px;}
+.tt-ig:hover{text-decoration:underline;}
+.tt-ctx{font-family:'Inter',sans-serif;font-size:17px;font-weight:400;line-height:1.6;color:#3D3A33;max-width:46ch;margin:0;}
+.tt-hl{font-weight:500;color:#A53D2A;}
+</style>
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "xfpndubufx");
+    </script>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <span class="navbar-brand">Aldana Alomas</span>
+    <div class="navbar-links">
+      <a href="#servicio" class="nav-link">Trabajá con nosotros</a>
+      <a href="#formulario" class="btn btn-primary">Aplicar al Programa</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== SECTION 1: HERO ===== -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-content fade-in">
+      <p style="font-size:12px;font-weight:600;color:#2D6650;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:14px;">Para quienes tienen una tienda online</p>
+      <h1 style="font-size:56px;font-weight:800;line-height:1.05;color:#18181B;margin-bottom:16px;letter-spacing:-0.02em;text-wrap:balance;">
+        De apagar incendios a<br>
+        <span style="color:#2D6650;">CEO que escala</span>
+      </h1>
+      <p style="font-size:22px;color:#57534E;line-height:1.5;margin-bottom:32px;max-width:520px;">
+        Te ayudo a escalar tu tienda online con un sistema de marketing propio.
+      </p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <a href="#solucion" style="background:#2D6650;color:white;padding:16px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:16px;display:flex;flex-direction:column;align-items:center;gap:4px;transition:transform 0.2s,box-shadow 0.2s;flex:1;min-width:180px;text-align:center;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <span>Aprendé a hacerlo vos</span>
+          <span style="font-weight:400;font-size:13px;opacity:0.8;">El Programa CEO</span>
+        </a>
+        <a href="#servicio" style="background:#A53C4B;color:white;padding:16px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:16px;display:flex;flex-direction:column;align-items:center;gap:4px;transition:transform 0.2s,box-shadow 0.2s;flex:1;min-width:180px;text-align:center;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <span>Lo hacemos por vos</span>
+          <span style="font-weight:400;font-size:13px;opacity:0.8;">Gestión de tu pauta</span>
+        </a>
+      </div>
+      <a href="https://wa.me/5491126543319" target="_blank" style="color:#57534E;font-size:14px;font-weight:500;text-decoration:none;margin-top:16px;display:inline-flex;align-items:center;gap:6px;transition:color 0.2s;" onmouseover="this.style.color='#18181B'" onmouseout="this.style.color='#57534E'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L0 24l6.335-1.502A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.368l-.36-.214-3.726.883.916-3.618-.236-.373A9.818 9.818 0 1112 21.818z"/></svg>
+        ¿Tenés dudas? Escribime por WhatsApp
+      </a>
+    </div>
+    <div class="hero-visual fade-in">
+      <!-- FOTO ALDANA HERO — Guardar la foto en img/aldi-hero.jpg -->
+      <img src="img/aldi-hero.jpg" alt="Aldana Alomas — Growth Strategist" style="max-width:380px;width:100%;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.12);object-fit:cover;object-position:center top;">
+      <!-- Badge 1: Meta Ads · Tiendas online -->
+      <div class="hero-badge hero-badge-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2D6650" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Meta Ads · Tiendas online
+      </div>
+      <!-- Badge 2: Marcas en toda LATAM -->
+      <div class="hero-badge hero-badge-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2D6650" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg>
+        Marcas en toda LATAM
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== SECTION 3: LA SOLUCION (VIDEO) ===== -->
+<section class="section-respiro" style="background:#FBF9F4;margin-top:64px;" id="solucion">
+  <div style="max-width:860px;margin:0 auto;text-align:center;">
+    <h2 class="fade-in" style="font-size:44px;font-weight:800;color:#18181B;margin-bottom:16px;line-height:1.05;letter-spacing:-0.02em;">¿Qué es el Programa CEO?</h2>
+    <p class="fade-in" style="font-size:20px;color:#18181B;line-height:1.45;margin-bottom:32px;">Toda empresa tiene un CEO que dirige.<br>En tu tienda, ese CEO <strong style="color:#2D6650;">sos vos.</strong></p>
+    <div class="ceo-video fade-in">
+      <video src="video-explicativo-web.mp4" poster="img/aldi-faq.jpg" controls playsinline preload="none"></video>
+    </div>
+  </div>
+</section>
+
+<section style="background:#FBF9F4;padding:48px 32px 0;text-align:center;">
+  <div style="max-width:860px;margin:0 auto;">
+    <a href="#formulario" class="btn btn-primary">Aplicar al Programa</a>
+    <p style="font-family:'Inter',sans-serif;font-size:14px;color:#6E655A;margin:14px 0 0;">No entra cualquiera. Completá el formulario y lo evaluamos con tu data.</p>
+  </div>
+</section>
+
+
+<!-- ===== SAGE CLARO (solo fondos oscuros) ===== -->
+<style>
+  :root { --sage-claro: #5FB894; }
+</style>
+
+<!-- ===== RECORRIDO 5 PASOS (TIMELINE) ===== -->
+<style>
+  .ceo-video{ max-width:880px; margin:0 auto; }
+  .ceo-video video{ display:block; width:100%; height:auto; border-radius:14px; background:#1F1F1B; }
+
+  .timeline-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+    padding-left: 48px;
+  }
+  .timeline-wrap::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 8px;
+    bottom: 8px;
+    width: 3px;
+    background: #D9D5CA;
+    border-radius: 2px;
+  }
+  .timeline-step {
+    position: relative;
+    padding: 0 0 40px 0;
+  }
+  .timeline-step:last-child { padding-bottom: 0; }
+  .timeline-num {
+    position: absolute;
+    left: -48px;
+    top: 0;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    background: #2D6650;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .timeline-step h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #18181B;
+    margin: 0 0 8px;
+    line-height: 1.2;
+  }
+  .timeline-step p {
+    font-size: 16px;
+    color: #44403C;
+    line-height: 1.6;
+    margin: 0 0 8px;
+  }
+  .timeline-sub {
+    font-size: 13px;
+    color: #A09E98;
+    font-weight: 500;
+    margin: 0;
+  }
+  .timeline-meta {
+    text-align: center;
+    margin-top: 48px;
+    font-size: 14px;
+    color: #A09E98;
+    font-weight: 500;
+  }
+  @media (max-width: 768px) {
+    .timeline-wrap { padding-left: 40px; }
+    .timeline-wrap::before { left: 12px; }
+    .timeline-num { left: -40px; width: 28px; height: 28px; font-size: 13px; }
+    .timeline-step h3 { font-size: 18px; }
+  }
+</style>
+<section class="section-respiro" style="background:#FBF9F4;" id="por-que-funciona">
+  <div style="max-width:1080px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:64px;">
+      <h2 class="fade-in" style="font-size:clamp(36px,5vw,54px);font-weight:800;letter-spacing:-0.025em;line-height:1.05;margin-bottom:22px;color:#18181B;">El recorrido, paso a paso</h2>
+      <p class="fade-in" style="color:#5A5852;font-size:19px;font-weight:400;max-width:520px;margin:0 auto;line-height:1.6;text-wrap:balance;">Una metodología probada con más de 20 clientes de <span style="white-space:nowrap;">e-commerce</span> <span style="white-space:nowrap;">en LATAM.</span></p>
+    </div>
+
+    <div class="timeline-wrap fade-in">
+      <div class="timeline-step">
+        <div class="timeline-num">1</div>
+        <h3>Entendé tu negocio por números</h3>
+        <p>Sabés si tu tienda es rentable de verdad, cuánto te queda y cuánto podés invertir sin fundirte. Dejás de decidir por sensación.</p>
+        <p class="timeline-sub">Mentalidad de CEO · margen real · cuánto invertir</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">2</div>
+        <h3>Afilá tu oferta</h3>
+        <p>Tenés claro qué vendés, a quién y por qué te eligen a vos. Una oferta que sostiene el precio y no compite por barata.</p>
+        <p class="timeline-sub">Cliente real · diferenciación · pricing · ticket</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">3</div>
+        <h3>Dejá tu cuenta impecable</h3>
+        <p>Píxel, API de Conversiones, catálogo y dominio configurados antes de gastar un peso. No quemás plata por una base mal armada.</p>
+        <p class="timeline-sub">Base técnica completa · checklist pre-campaña</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">4</div>
+        <h3>Construí tu sistema de campañas</h3>
+        <p>Entendés cómo piensa Meta en 2026 y armás campañas y creativos que dirigís vos, no que ejecutás a ciegas.</p>
+        <p class="timeline-sub">Estructura de cuenta · Advantage+ vs ABO · creativos · ángulos</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">5</div>
+        <h3>Escalá con criterio</h3>
+        <p>Leés tu cuenta como CEO, sabés cuándo escalar sin romper lo que funciona, y gestionás tu semana con un sistema, no con caos.</p>
+        <p class="timeline-sub">KPIs · diagnóstico · cuándo escalar · rutina del CEO</p>
+      </div>
+    </div>
+
+    <p class="timeline-meta fade-in">8 módulos · 5 meses · accionable al final de cada uno</p>
+
+    <div style="text-align:center;margin-top:48px;">
+      <a href="#formulario" class="btn btn-primary" style="background:#A53C4B;color:#F4F1E9;display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:17px;padding:17px 40px;border-radius:999px;box-shadow:0 10px 30px -14px rgba(165,60,75,0.7);transition:transform .2s ease;text-decoration:none;">Aplicar al programa →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== RESULTADOS DE CLIENTES ===== -->
+<section class="section-densa" style="background:#F4F1E9;" id="resultados-clientes">
+  <div style="max-width:1140px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:64px;">
+      <h2 class="fade-in reveal-on-scroll" style="font-size:44px;font-weight:800;color:#173929;margin-bottom:16px;line-height:1.05;letter-spacing:-0.02em;">Acá no vas a ver capturas de facturación</h2>
+      <p class="fade-in reveal-on-scroll" style="color:#57534E;font-size:18px;line-height:1.5;">Vas a ver cómo pienso y cómo gestiono, contado por las marcas que gestioné.</p>
+    </div>
+    <!-- CASO 1: Baires Divan — Video vertical izquierda, texto derecha -->
+    <div class="fade-in reveal-on-scroll caso-block" style="display:flex;gap:48px;align-items:center;margin-bottom:64px;">
+      <div class="testi-video">
+        <video
+          src="videos/baires-review.mp4"
+          poster="videos/baires-review-poster-maxi.jpg"
+          controls
+          playsinline
+          preload="none">
+        </video>
+      </div>
+      <div class="testi-text">
+        <p class="tt-quote">"Gastamos menos y llegamos a m&aacute;s gente."</p>
+        <p class="tt-firma">Maximiliano Cingolani</p>
+        <p class="tt-brand">Baires Divan · Muebles y sillones · Argentina</p>
+        <a class="tt-ig" href="https://instagram.com/baires_divan" target="_blank" rel="noopener noreferrer">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>@baires_divan
+        </a>
+        <p class="tt-ctx">Pasaron del <span class="tt-hl">bot&oacute;n de promocionar</span> a un sistema de campa&ntilde;as ordenado. Creativos m&aacute;s eficientes, menos gasto, m&aacute;s alcance y facturaci&oacute;n en crecimiento.</p>
+      </div>
+    </div>
+    <!-- CASO 2: Placeholder — se activa cuando llegue el segundo video testimonial -->
+    <!--
+    <div class="fade-in caso-block" style="display:flex;gap:48px;align-items:center;">
+      <div class="testi-video">
+        <video
+          src="videos/NOMBRE.mp4"
+          poster="videos/NOMBRE-poster.jpg"
+          controls
+          playsinline
+          preload="none">
+        </video>
+      </div>
+      <div style="flex:1;padding:8px 0;">
+        <p style="font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#2D6650;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;">[MARCA — RUBRO · PAÍS]</p>
+        <p class="testimonial-cita" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:32px;line-height:1.14;color:#1F3D2A;margin-bottom:28px;">"[Cita corta]"</p>
+        <p class="testimonial-firma">[Nombre]</p>
+        <p style="font-family:'Inter',sans-serif;font-size:15px;font-weight:400;line-height:1.6;color:#6E655A;max-width:46ch;margin:0;">[1–2 líneas de contexto]</p>
+      </div>
+    </div>
+    -->
+  </div>
+</section>
+
+
+<!-- ===== SECTION 7: SOY ALDANA ===== -->
+<section class="section-densa" style="background:#F4F1E9;" id="sobre">
+  <div style="max-width:1140px;margin:0 auto;">
+    <div class="fade-in" style="background:#fff;border-radius:12px;padding:48px;max-width:900px;margin:0 auto;">
+      <h2 style="font-size:44px;font-weight:800;color:#18181B;margin-bottom:32px;text-align:left;line-height:1.05;letter-spacing:-0.02em;">Lo que me trajo hasta acá</h2>
+      <div style="display:flex;gap:48px;align-items:flex-start;">
+        <div style="flex-shrink:0;text-align:center;">
+          <img src="ALDI_PROFILE_1.jpg" alt="Aldana Alomas" style="width:260px;height:360px;border-radius:12px;object-fit:cover;object-position:center top;display:block;">
+          <p style="font-family:'Sacramento',cursive;font-size:32px;color:#18181B;margin-top:16px;margin-bottom:4px;line-height:1;">Aldana Alomas</p>
+          <p style="font-size:13px;color:#57534E;font-weight:600;line-height:1.4;margin-bottom:0;">Consultora de Meta Ads · Creadora del Programa CEO</p>
+        </div>
+        <div>
+          <p style="color:#44403C;font-size:17px;line-height:1.6;margin-bottom:16px;">Trabajé años adentro de empresas grandes. Estabilidad, responsabilidad, aprendizaje real sobre cómo funciona un negocio por dentro. Pero estaba construyendo algo que no era mío.</p>
+          <p style="color:#44403C;font-size:17px;line-height:1.6;margin-bottom:16px;">Cuando empecé a gestionar campañas para marcas de toda LATAM, vi siempre el mismo patrón: buenos dueños, buenos productos, y agencias que cobraban sin entender el negocio. Delegaban a ciegas porque nadie les había enseñado a leer sus propios números.</p>
+          <p style="color:#44403C;font-size:17px;line-height:1.6;margin-bottom:16px;">Hoy a algunas marcas les enseño a dirigir su sistema. A otras se los gestiono yo, con todo a la vista. Porque delegar no es el problema. <strong style="color:#18181B;">Delegar a ciegas, sí.</strong></p>
+          <p style="color:#44403C;font-size:17px;line-height:1.6;margin-bottom:0;">Todo lo que hago es para lo mismo: <strong style="color:#18181B;">que nunca más entregues tu negocio a alguien que no te muestra tus propios números.</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 8: FAQ CON CITA LATERAL ===== -->
+<section class="section-respiro" style="background:#FBF9F4;" id="faq">
+  <div style="max-width:1140px;margin:0 auto;">
+    <div class="faq2-grid fade-in" style="max-width:720px;margin:0 auto;">
+      <div>
+        <h2 style="font-size:48px;font-weight:800;color:#18181B;margin-bottom:32px;line-height:1.1;letter-spacing:-0.02em;">Preguntas frecuentes</h2>
+
+        <p style="font-size:13px;font-weight:700;color:#2D6650;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:20px;">Sobre el Programa CEO</p>
+        <div class="faq2-item">
+          <button class="faq2-question">
+            ¿Qué incluye y necesito experiencia previa?
+            <span class="faq2-icon">+</span>
+          </button>
+          <div class="faq2-answer"><p>Una metodología probada en más de 20 tiendas de LATAM, con distintos niveles de acceso según el momento de tu tienda, para que entres por donde más te sirve hoy. Te lleva desde la base: entender tus números, dejar la cuenta técnicamente impecable y recién después gestionar campañas con criterio. No necesitás experiencia previa, aunque nunca hayas entrado al Administrador de Anuncios.</p></div>
+        </div>
+        <div class="faq2-item">
+          <button class="faq2-question">
+            ¿Sirve para mi tienda?
+            <span class="faq2-icon">+</span>
+          </button>
+          <div class="faq2-answer"><p>Sí, trabajamos con Shopify, Tienda Nube y WooCommerce. El sistema aplica a cualquier tienda online que ya esté vendiendo.</p></div>
+        </div>
+        <div class="faq2-item">
+          <button class="faq2-question">
+            ¿Es grabado o en vivo, y cuánto tiempo me lleva?
+            <span class="faq2-icon">+</span>
+          </button>
+          <div class="faq2-answer"><p>Las dos cosas. Tenés todo el contenido grabado para avanzar a tu ritmo, y con una hora por día alcanza. Las clases son directas y sin relleno, cada una con práctica para aplicar directo en tu negocio. Según la modalidad que elijas, sumás clases en vivo todas las semanas para resolver dudas sobre tu tienda. No es un curso que ves solo y listo: tenés acompañamiento real.</p></div>
+        </div>
+
+        <p style="font-size:13px;font-weight:700;color:#A53C4B;letter-spacing:0.12em;text-transform:uppercase;margin:40px 0 20px;">Sobre el servicio de gestión</p>
+        <div class="faq2-item">
+          <button class="faq2-question">
+            ¿En qué se diferencia esto de una agencia?
+            <span class="faq2-icon">+</span>
+          </button>
+          <div class="faq2-answer"><p>La mayoría de las agencias optimizan por ROAS y te pasan un reporte. Yo trabajo sobre tu rentabilidad real: margen, costos, cuánto podés invertir por venta. Las decisiones se toman sobre tu ganancia, no sobre una métrica de vanidad.</p></div>
+        </div>
+        <div class="faq2-item">
+          <button class="faq2-question">
+            ¿Desde qué facturación conviene el servicio?
+            <span class="faq2-icon">+</span>
+          </button>
+          <div class="faq2-answer"><p>Trabajo con tiendas que facturan mínimo USD 10.000 al mes. Si ya tenés ese volumen y querés escalar, es para vos. Si todavía no llegaste, te conviene el programa primero.</p></div>
+        </div>
+        <div class="faq2-item">
+          <button class="faq2-question">
+            ¿Cuántas marcas tomás por mes?
+            <span class="faq2-icon">+</span>
+          </button>
+          <div class="faq2-answer"><p>Pocas. Cada cuenta requiere análisis y seguimiento real, no piloto automático. Y solo trabajo con marcas obsesionadas por crecer, que se involucran en serio. Si querés delegar y desentenderte, no somos para vos.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 10: FORMULARIO DE APLICACIÓN ===== -->
+<section id="formulario" style="background:#18181B;padding:96px 32px;color:#fff;">
+  <div style="max-width:900px;margin:0 auto;text-align:center;">
+    <h2 class="fade-in" style="font-size:56px;font-weight:800;color:white;margin-bottom:16px;line-height:1.15;letter-spacing:-0.02em;">¿El Programa CEO es para vos?</h2>
+    <p class="fade-in" style="color:rgba(255,255,255,0.6);font-size:22px;margin-bottom:48px;line-height:1.5;">Respondé 4 preguntas rápidas para saber si calificás.</p>
+
+    <div style="max-width:640px;margin:0 auto;background:#2E2E38;border-radius:20px;border:1px solid rgba(61,136,104,0.4);box-shadow:0 8px 40px rgba(0,0,0,0.45),0 0 0 1px rgba(61,136,104,0.15);padding:40px 36px;">
+      <!-- Step Indicator -->
+      <div id="stepIndicator" style="display:flex;gap:8px;justify-content:center;margin-bottom:32px;">
+        <span class="step-dot active" style="width:10px;height:10px;border-radius:50%;background:#A09E98;transition:background 0.3s;"></span>
+        <span class="step-dot" style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.15);transition:background 0.3s;"></span>
+        <span class="step-dot" style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.15);transition:background 0.3s;"></span>
+        <span class="step-dot" style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.15);transition:background 0.3s;"></span>
+      </div>
+
+      <!-- STEP 1 -->
+      <div id="step1" class="form-step active">
+        <h3 style="font-size:22px;font-weight:700;color:white;margin-bottom:24px;line-height:1.15;">¿Tenés una tienda online activa?</h3>
+        <button class="form-option" data-step="1" data-value="si">Sí, ya tengo mi tienda online funcionando</button>
+        <button class="form-option" data-step="1" data-value="no">No, todavía no tengo una tienda online</button>
+      </div>
+
+      <!-- STEP 2 -->
+      <div id="step2" class="form-step">
+        <h3 style="font-size:22px;font-weight:700;color:white;margin-bottom:24px;line-height:1.15;">¿Cuánto facturás por mes aproximadamente?</h3>
+        <button class="form-option" data-step="2" data-value="menos1000">Menos de $1.000 USD/mes</button>
+        <button class="form-option" data-step="2" data-value="1000-3000">Entre $1.000 y $3.000 USD/mes</button>
+        <button class="form-option" data-step="2" data-value="3000-10000">Entre $3.000 y $10.000 USD/mes</button>
+        <button class="form-option" data-step="2" data-value="mas10000">Más de $10.000 USD/mes</button>
+      </div>
+
+      <!-- STEP 3 -->
+      <div id="step3" class="form-step">
+        <h3 style="font-size:22px;font-weight:700;color:white;margin-bottom:24px;line-height:1.15;">¿Hiciste publicidad digital antes?</h3>
+        <button class="form-option" data-step="3" data-value="si">Sí, hice campañas en Meta Ads u otra plataforma</button>
+        <button class="form-option" data-step="3" data-value="agencia">Sí, pero lo manejaba una agencia</button>
+        <button class="form-option" data-step="3" data-value="no">No, nunca hice publicidad digital</button>
+      </div>
+
+      <!-- STEP 4 -->
+      <div id="step4" class="form-step">
+        <h3 style="font-size:22px;font-weight:700;color:white;margin-bottom:24px;line-height:1.15;">¿Podés invertir en publicidad para hacer crecer tu negocio?</h3>
+        <button class="form-option" data-step="4" data-value="si">Sí, tengo presupuesto para invertir</button>
+        <button class="form-option" data-step="4" data-value="no">No, en este momento no puedo invertir</button>
+      </div>
+
+      <!-- RESULTADO: CALIFICA (sage) -->
+      <div id="resultCalifica" class="form-result">
+        <div style="background:rgba(45,102,80,0.08);border:2px solid #2D6650;border-radius:12px;padding:32px;margin-bottom:32px;transition:opacity 0.5s ease, transform 0.5s ease;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+            <div style="width:36px;height:36px;background:#2D6650;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 style="font-size:22px;font-weight:700;color:#2D6650;margin:0;">¡Genial! El Programa CEO es para vos.</h3>
+          </div>
+          <p style="color:rgba(255,255,255,0.8);font-size:17px;line-height:1.6;margin-left:48px;">Agendá una llamada gratuita y vemos juntos cómo aplicar el sistema a tu negocio.</p>
+        </div>
+        <div class="calendly-inline-widget" data-url="https://calendly.com/aldanaalomas/reunion-de-estrategia-publicitaria" style="min-width:320px;height:700px;border-radius:12px;overflow:hidden;background:#fff;"></div>
+      </div>
+
+      <!-- RESULTADO: ZONA GRIS (potencial — positivo) -->
+      <div id="resultZonaGris" class="form-result">
+        <div style="background:rgba(45,102,80,0.08);border:2px solid #2D6650;border-radius:12px;padding:32px;margin-bottom:32px;transition:opacity 0.5s ease, transform 0.5s ease;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+            <div style="width:36px;height:36px;background:#2D6650;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 style="font-size:22px;font-weight:700;color:#2D6650;margin:0;">Tu negocio tiene potencial.</h3>
+          </div>
+          <p style="color:rgba(255,255,255,0.8);font-size:17px;line-height:1.6;margin-left:48px;">Estás en una etapa temprana, que es justo el mejor momento para ordenar tus números y construir sobre bases sólidas desde el día uno. Agendá una llamada y evaluamos juntos tu caso.</p>
+        </div>
+        <div class="calendly-inline-widget" data-url="https://calendly.com/aldanaalomas/reunion-de-estrategia-publicitaria" style="min-width:320px;height:700px;border-radius:12px;overflow:hidden;background:#fff;"></div>
+      </div>
+
+      <!-- RESULTADO: NO CALIFICA (neutro) -->
+      <div id="resultNoCalifica" class="form-result">
+        <div style="background:rgba(120,113,108,0.08);border:2px solid #78716C;border-radius:12px;padding:32px;transition:opacity 0.5s ease, transform 0.5s ease;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+            <div style="width:36px;height:36px;background:#78716C;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            </div>
+            <h3 style="font-size:22px;font-weight:700;color:#78716C;margin:0;">En este momento el programa no es para vos.</h3>
+          </div>
+          <p style="color:rgba(255,255,255,0.8);font-size:17px;line-height:1.6;margin-bottom:16px;margin-left:48px;">El Programa CEO es para tiendas que ya están vendiendo, aunque sea de forma inestable o dependiendo de agencias, y que necesitan ordenar sus números y escalar sin depender de nadie. Si todavía no tenés tu tienda en marcha, te conviene arrancar por ahí primero y volver cuando ya estés vendiendo.</p>
+          <p style="color:rgba(255,255,255,0.6);font-size:14px;margin-left:48px;">¿Tenés dudas? Escribime por <a href="https://wa.me/5491126543319" target="_blank" style="color:#3D8868;text-decoration:underline;">WhatsApp</a> y te oriento.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== SECCIÓN SERVICIO DE GESTIÓN ===== -->
+<section id="servicio" style="background:#FBF9F4;padding:96px 32px;">
+  <div style="max-width:860px;margin:0 auto;">
+    <h2 class="fade-in" style="font-size:44px;font-weight:800;color:#18181B;margin-bottom:24px;line-height:1.05;letter-spacing:-0.02em;text-align:center;">¿Llegaste al punto de delegar tu pauta?</h2>
+
+    <div class="fade-in" style="max-width:700px;margin:0 auto 48px;font-size:18px;color:#44403C;line-height:1.7;">
+      <p style="margin-bottom:16px;"><strong style="color:#18181B;">Delegar no es el problema. Delegar a ciegas sí.</strong></p>
+      <p style="margin-bottom:16px;">La mayoría de las marcas salta de una agencia amateur a otra sin entender qué pasa en su cuenta. No saben si trabajan bien o las funden.</p>
+      <p style="margin-bottom:16px;">Se delega bien con facturación estable y con alguien que sabe lo que hace y te rinde cuentas de cada peso.</p>
+      <p>Si estás en ese momento, lo hacemos por vos. Yo dirijo la estrategia, mi equipo ejecuta, y vos ves a dónde va tu plata. Solo tiendas online.</p>
+    </div>
+
+    <!-- Qué hacemos + Cómo trabajamos -->
+    <div class="fade-in" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:48px;">
+      <div class="pq-hover-card" style="background:white;border:1px solid rgba(24,24,27,0.08);border-radius:12px;padding:32px;transition:transform 0.3s ease, box-shadow 0.3s ease;">
+        <h3 style="font-size:20px;font-weight:700;color:#18181B;margin-bottom:20px;line-height:1.15;">Qué hacemos</h3>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="color:#2D6650;font-weight:700;flex-shrink:0;">→</span>
+            <p style="color:#44403C;margin:0;font-size:16px;line-height:1.5;">Estrategia de pauta y estructura de cuenta</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="color:#2D6650;font-weight:700;flex-shrink:0;">→</span>
+            <p style="color:#44403C;margin:0;font-size:16px;line-height:1.5;">Creativos y ángulos que venden</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="color:#2D6650;font-weight:700;flex-shrink:0;">→</span>
+            <p style="color:#44403C;margin:0;font-size:16px;line-height:1.5;">Email marketing que recupera ventas</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="color:#2D6650;font-weight:700;flex-shrink:0;">→</span>
+            <p style="color:#44403C;margin:0;font-size:16px;line-height:1.5;">Gestión y optimización mes a mes</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="color:#2D6650;font-weight:700;flex-shrink:0;">→</span>
+            <p style="color:#44403C;margin:0;font-size:16px;line-height:1.5;">Reportes claros, sin tecnicismos</p>
+          </div>
+        </div>
+      </div>
+      <div class="pq-hover-card" style="background:white;border:1px solid rgba(24,24,27,0.08);border-radius:12px;padding:32px;transition:transform 0.3s ease, box-shadow 0.3s ease;">
+        <h3 style="font-size:20px;font-weight:700;color:#18181B;margin-bottom:20px;line-height:1.15;">Cómo trabajamos</h3>
+        <p style="color:#44403C;font-size:16px;line-height:1.7;margin-bottom:0;">Cupos limitados. Elegimos con qué marcas trabajar. Si entrás, tenés mi criterio detrás de cada decisión.</p>
+      </div>
+    </div>
+
+    <p class="fade-in" style="text-align:center;font-size:17px;color:#57534E;line-height:1.6;max-width:520px;margin:0 auto 48px;font-style:italic;">Trabajamos solo con tiendas online. Es lo único que hacemos, por eso lo hacemos bien.</p>
+
+    <!-- Bloque de cupos -->
+    <div class="cupos-block reveal-on-scroll" id="cupos-block">
+      <p class="cupos-label">Cupos este mes</p>
+      <div class="cupos-display">
+        <span class="cupos-numeral" id="cupos-numeral" data-target="2">0</span>
+        <div class="cupos-text" id="cupos-text-disponibles">
+          <span>lugares</span>
+          <span>disponibles</span>
+        </div>
+        <p id="cupos-text-llenos" style="display:none;font-size:16px;color:#44403C;line-height:1.5;max-width:340px;margin:0;">Cupos llenos este mes. Dejá tu aplicación y quedás primera para el próximo.</p>
+      </div>
+      <div class="cupos-loop"></div>
+      <a href="#formulario-servicio" class="cupos-cta">Quiero trabajar con ustedes <span class="cta-arrow">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FORMULARIO CALIFICADOR DEL SERVICIO ===== -->
+<section id="formulario-servicio" style="background:#18181B;padding:96px 32px;color:#fff;">
+  <div style="max-width:900px;margin:0 auto;text-align:center;">
+    <h2 class="fade-in" style="font-size:44px;font-weight:800;color:white;margin-bottom:16px;line-height:1.15;letter-spacing:-0.02em;">¿Somos un buen match?</h2>
+    <p class="fade-in" style="color:rgba(255,255,255,0.6);font-size:20px;margin-bottom:48px;line-height:1.5;">Completá esto y vemos si somos un buen match.</p>
+
+    <div style="max-width:640px;margin:0 auto;background:#2E2E38;border-radius:20px;border:1px solid rgba(165,60,75,0.4);box-shadow:0 8px 40px rgba(0,0,0,0.45),0 0 0 1px rgba(165,60,75,0.15);padding:40px 36px;">
+      <!-- Step Indicator -->
+      <div id="svcStepIndicator" style="display:flex;gap:8px;justify-content:center;margin-bottom:32px;">
+        <span class="svc-step-dot active" style="width:10px;height:10px;border-radius:50%;background:#A53C4B;transition:background 0.3s;box-shadow:0 0 6px rgba(165,60,75,0.4);"></span>
+        <span class="svc-step-dot" style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.15);transition:background 0.3s;"></span>
+        <span class="svc-step-dot" style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.15);transition:background 0.3s;"></span>
+        <span class="svc-step-dot" style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.15);transition:background 0.3s;"></span>
+      </div>
+
+      <!-- SVC STEP 1 -->
+      <div id="svcStep1" class="svc-form-step active">
+        <h3 style="font-size:22px;font-weight:700;color:white;margin-bottom:24px;line-height:1.15;">¿Tu tienda ya está activa y vendiendo?</h3>
+        <button class="form-option svc-option" data-svc-step="1" data-svc-value="si">Sí, ya estoy vendiendo</button>
+        <button class="form-option svc-option" data-svc-step="1" data-svc-value="no">Todavía no</button>
+      </div>
+
+      <!-- SVC STEP 2 -->
+      <div id="svcStep2" class="svc-form-step">
+        <h3 style="font-size:22px;font-weight:700;color:white;margin-bottom:24px;line-height:1.15;">¿Cuánto facturás por mes aproximadamente?</h3>
+        <button class="form-option svc-option" data-svc-step="2" data-svc-value="menos10000">Menos de USD 10.000</button>
+        <button class="form-option svc-option" data-svc-step="2" data-svc-value="10000-30000">Entre USD 10.000 y 30.000</button>
+        <button class="form-option svc-option" data-svc-step="2" data-svc-value="30000-50000">Entre USD 30.000 y 50.000</button>
+        <button class="form-option svc-option" data-svc-step="2" data-svc-value="mas50000">Más de USD 50.000</button>
+      </div>
+
+      <!-- SVC STEP 3 -->
+      <div id="svcStep3" class="svc-form-step">
+        <h3 style="font-size:22px;font-weight:700;color:white;margin-bottom:24px;line-height:1.15;">¿Qué vendés?</h3>
+        <input type="text" id="svcProducto" placeholder="Ej: ropa deportiva, cosmética natural, deco..." style="display:block;width:100%;padding:16px 24px;background:#2D2D32;border:1px solid rgba(244,241,233,0.12);border-radius:12px;color:#F4F1E9;font-family:'Outfit',sans-serif;font-size:17px;outline:none;transition:border-color 0.25s;margin-bottom:16px;" onfocus="this.style.borderColor='#A53C4B'" onblur="this.style.borderColor='rgba(244,241,233,0.12)'">
+        <button class="form-option svc-next-btn" onclick="svcAdvanceText()" style="background:#A53C4B;border-color:#A53C4B;text-align:center;font-weight:700;">Siguiente →</button>
+      </div>
+
+      <!-- SVC STEP 4 -->
+      <div id="svcStep4" class="svc-form-step">
+        <h3 style="font-size:22px;font-weight:700;color:white;margin-bottom:24px;line-height:1.15;">¿Ya invertís en pauta hoy?</h3>
+        <button class="form-option svc-option" data-svc-step="4" data-svc-value="si">Sí, todos los meses</button>
+        <button class="form-option svc-option" data-svc-step="4" data-svc-value="aveces">A veces</button>
+        <button class="form-option svc-option" data-svc-step="4" data-svc-value="no">Todavía no</button>
+      </div>
+
+      <!-- SVC RESULTADO: NO CALIFICA -->
+      <div id="svcResultNo" class="svc-form-result">
+        <div style="background:rgba(45,102,80,0.08);border:2px solid #2D6650;border-radius:12px;padding:32px;margin-bottom:24px;">
+          <p style="color:white;font-size:18px;line-height:1.6;margin-bottom:16px;">Por ahora estás en etapa de aprender, no de delegar. Antes de contratar a alguien, conviene que entiendas tus números.</p>
+          <p style="color:rgba(255,255,255,0.7);font-size:16px;line-height:1.6;">Empezá por el Programa CEO.</p>
+        </div>
+        <a href="#solucion" style="background:#2D6650;color:white;padding:16px 32px;border-radius:48px;text-decoration:none;font-weight:700;font-size:17px;display:inline-block;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.10)'" onmouseout="this.style.transform='';this.style.boxShadow=''">Conocer el programa →</a>
+      </div>
+
+      <!-- SVC RESULTADO: FACTURA < 10K → PROGRAMA -->
+      <div id="svcResultPrograma" class="svc-form-result">
+        <div style="background:rgba(45,102,80,0.08);border:2px solid #2D6650;border-radius:12px;padding:32px;margin-bottom:24px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;justify-content:center;">
+            <div style="width:36px;height:36px;background:#2D6650;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3 style="font-size:22px;font-weight:700;color:#2D6650;margin:0;">Todavía no es momento de delegar.</h3>
+          </div>
+          <p style="color:rgba(255,255,255,0.8);font-size:17px;line-height:1.6;">Con tu facturación actual, lo que más te conviene es aprender a manejar tu pauta vos misma. Así controlás tus números antes de poner la plata en manos de alguien más.</p>
+          <p style="color:rgba(255,255,255,0.6);font-size:16px;line-height:1.6;margin-top:12px;">Arrancá por el Programa CEO.</p>
+        </div>
+        <a href="#solucion" style="background:#2D6650;color:white;padding:16px 32px;border-radius:48px;text-decoration:none;font-weight:700;font-size:17px;display:inline-block;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.10)'" onmouseout="this.style.transform='';this.style.boxShadow=''">Conocer el programa →</a>
+      </div>
+
+      <!-- SVC RESULTADO: CALIFICA -->
+      <div id="svcResultSi" class="svc-form-result">
+        <div style="background:rgba(45,102,80,0.08);border:2px solid #2D6650;border-radius:12px;padding:32px;margin-bottom:24px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;justify-content:center;">
+            <div style="width:36px;height:36px;background:#2D6650;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 style="font-size:22px;font-weight:700;color:#2D6650;margin:0;">Buenísimo.</h3>
+          </div>
+          <p style="color:rgba(255,255,255,0.8);font-size:17px;line-height:1.6;">Estás en el momento justo para delegar con criterio. Agendá una llamada y lo vemos en detalle.</p>
+        </div>
+        <div class="calendly-inline-widget svc-calendly" data-url="https://calendly.com/aldanaalomas/reunion-de-estrategia-publicitaria" style="min-width:320px;height:700px;border-radius:12px;overflow:hidden;background:#fff;margin-bottom:16px;"></div>
+        <a href="https://wa.me/5491126543319" target="_blank" style="color:rgba(255,255,255,0.7);font-size:15px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L0 24l6.335-1.502A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.368l-.36-.214-3.726.883.916-3.618-.236-.373A9.818 9.818 0 1112 21.818z"/></svg>
+          O escribime por WhatsApp
+        </a>
+      </div>
+
+      <!-- SVC RESULTADO: PEZ GORDO (mas50000) -->
+      <div id="svcResultPezGordo" class="svc-form-result">
+        <div style="background:rgba(45,102,80,0.08);border:2px solid #2D6650;border-radius:12px;padding:32px;margin-bottom:24px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;justify-content:center;">
+            <div style="width:36px;height:36px;background:#2D6650;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 style="font-size:22px;font-weight:700;color:#2D6650;margin:0;">Hablemos en serio.</h3>
+          </div>
+          <p style="color:rgba(255,255,255,0.8);font-size:17px;line-height:1.6;">Tu facturación está en otro nivel. Esto no es gestión estándar: trabajamos tus números y tu escala de otra forma. Agendá una llamada y lo vemos a fondo.</p>
+        </div>
+        <div class="calendly-inline-widget svc-calendly" data-url="https://calendly.com/aldanaalomas/reunion-de-estrategia-publicitaria" style="min-width:320px;height:700px;border-radius:12px;overflow:hidden;background:#fff;margin-bottom:16px;"></div>
+        <a href="https://wa.me/5491126543319" target="_blank" style="color:rgba(255,255,255,0.7);font-size:15px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L0 24l6.335-1.502A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.368l-.36-.214-3.726.883.916-3.618-.236-.373A9.818 9.818 0 1112 21.818z"/></svg>
+          O escribime por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 11: CTA FINAL ===== -->
+<section class="section-respiro" style="background:#18181B;text-align:center;">
+  <div class="container">
+    <div class="cta-reveal" style="font-size:64px;font-weight:800;color:#F4F0E6;line-height:1.15;margin-bottom:8px;opacity:0;transform:translateY(24px);transition:all 0.6s ease;letter-spacing:-0.02em;">Tu tienda tiene potencial</div>
+    <div class="cta-reveal" style="font-size:64px;font-weight:800;color:#5B9B82;line-height:1.15;margin-bottom:8px;opacity:0;transform:translateY(24px);transition:all 0.6s ease 0.1s;letter-spacing:-0.02em;">El sistema para escalarlo existe</div>
+    <div class="cta-reveal" style="font-size:64px;font-weight:800;color:#F4F0E6;line-height:1.15;margin-bottom:48px;opacity:0;transform:translateY(24px);transition:all 0.6s ease 0.2s;letter-spacing:-0.02em;">Solo falta que des el primer paso</div>
+    <a href="#formulario" style="background:#A53C4B;color:#F4F0E6;font-weight:700;padding:16px 48px;border-radius:48px;font-size:22px;text-decoration:none;display:inline-block;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">Quiero aplicar ahora →</a>
+  </div>
+</section>
+
+<!-- ===== SECTION 12: FOOTER ===== -->
+<footer style="background:#18181B;color:rgba(255,255,255,0.6);padding:48px 0;text-align:center;font-size:14px;">
+  <div class="container">
+    <div style="display:flex;justify-content:center;gap:32px;margin-bottom:16px;flex-wrap:wrap;">
+      <a href="https://wa.me/5491126543319" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;color:white;text-decoration:none;font-weight:600;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L0 24l6.335-1.502A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.368l-.36-.214-3.726.883.916-3.618-.236-.373A9.818 9.818 0 1112 21.818z"/></svg>
+        WhatsApp
+      </a>
+      <a href="https://www.instagram.com/aldana.alomas" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;color:white;text-decoration:none;font-weight:600;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        @aldana.alomas
+      </a>
+    </div>
+    <p>Programa CEO &copy; 2026</p>
+  </div>
+</footer>
+
+<!-- ===== STICKY BAR ===== -->
+<div id="sticky-bar" style="position:fixed;bottom:0;left:0;right:0;background:#18181B;padding:14px 40px;display:flex;justify-content:space-between;align-items:center;z-index:9999;transform:translateY(100%);transition:transform 0.3s ease;box-shadow:0 -2px 12px rgba(0,0,0,0.18);">
+  <span style="color:white;font-weight:700;font-size:16px;letter-spacing:-0.01em;">Programa CEO</span>
+  <div style="display:flex;gap:10px;align-items:center;">
+    <a href="https://wa.me/5491126543319" target="_blank" style="color:rgba(244,241,233,0.7);padding:9px 20px;border-radius:48px;text-decoration:none;font-weight:600;font-size:14px;border:1px solid rgba(244,241,233,0.2);transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;" onmouseover="this.style.borderColor='rgba(244,241,233,0.4)';this.style.color='#F4F1E9'" onmouseout="this.style.borderColor='rgba(244,241,233,0.2)';this.style.color='rgba(244,241,233,0.7)'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L0 24l6.335-1.502A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.368l-.36-.214-3.726.883.916-3.618-.236-.373A9.818 9.818 0 1112 21.818z"/></svg>
+      WhatsApp
+    </a>
+    <a href="#formulario" style="background:#A53C4B;color:white;padding:10px 26px;border-radius:48px;text-decoration:none;font-weight:700;font-size:14px;transition:all 0.2s;box-shadow:0 2px 8px rgba(165,60,75,0.3);" onmouseover="this.style.background='#8E3340';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#A53C4B';this.style.transform='none'">Agendar una llamada →</a>
+  </div>
+</div>
+
+<!-- Calendly Script -->
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+<script>
+// ===== NAVBAR SCROLL EFFECT =====
+window.addEventListener('scroll', function() {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  // Sticky bar: show after scrolling past hero
+  var bar = document.getElementById('sticky-bar');
+  if (bar) {
+    if (window.scrollY > 400) { bar.style.transform = 'translateY(0)'; }
+    else { bar.style.transform = 'translateY(100%)'; }
+  }
+});
+
+// ===== FADE-IN ON SCROLL =====
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(function(el) {
+  observer.observe(el);
+});
+
+// ===== REVEAL ON SCROLL (reusable, staggered) =====
+(function() {
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal-on-scroll');
+
+  if (reducedMotion) {
+    revealEls.forEach(function(el) { el.classList.add('revealed'); });
+  } else {
+    var revealObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var delay = entry.target.dataset.revealDelay || 0;
+          setTimeout(function() { entry.target.classList.add('revealed'); }, delay);
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    var staggerGroup = null;
+    var staggerIndex = 0;
+    revealEls.forEach(function(el) {
+      var parent = el.closest('section');
+      if (parent !== staggerGroup) { staggerGroup = parent; staggerIndex = 0; }
+      el.dataset.revealDelay = staggerIndex * 80;
+      staggerIndex++;
+      revealObs.observe(el);
+    });
+  }
+})();
+
+// ===== CUPOS BLOCK: counter =====
+// Cambiar este número cada mes (cupos de agencia disponibles)
+var CUPOS_AGENCIA_ESTE_MES = 2;
+(function() {
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cuposBlock = document.getElementById('cupos-block');
+  if (!cuposBlock) return;
+
+  var numEl = document.getElementById('cupos-numeral');
+  var target = CUPOS_AGENCIA_ESTE_MES;
+  numEl.dataset.target = target;
+
+  if (target === 0) {
+    numEl.style.display = 'none';
+    document.getElementById('cupos-text-disponibles').style.display = 'none';
+    document.getElementById('cupos-text-llenos').style.display = 'block';
+    return;
+  }
+
+  if (reducedMotion) {
+    numEl.textContent = target;
+    return;
+  }
+
+  var cuposFired = false;
+  var cuposObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !cuposFired) {
+        cuposFired = true;
+        cuposObs.unobserve(cuposBlock);
+        var current = 0;
+        var duration = 600;
+        var stepTime = Math.round(duration / target);
+        var timer = setInterval(function() {
+          current++;
+          numEl.textContent = current;
+          if (current >= target) clearInterval(timer);
+        }, stepTime);
+      }
+    });
+  }, { threshold: 0.3 });
+  cuposObs.observe(cuposBlock);
+})();
+
+// ===== FAQ ACCORDION (V2 - light bg) =====
+document.querySelectorAll('.faq2-question').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var item = this.parentElement;
+    var wasActive = item.classList.contains('active');
+    document.querySelectorAll('.faq2-item').forEach(function(i) { i.classList.remove('active'); });
+    if (!wasActive) item.classList.add('active');
+  });
+});
+
+// ===== APPLICATION FORM =====
+var answers = {};
+
+document.querySelectorAll('.form-option').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var step = parseInt(this.dataset.step);
+    var value = this.dataset.value;
+    answers[step] = value;
+
+    // Highlight selected
+    var siblings = this.parentElement.querySelectorAll('.form-option');
+    siblings.forEach(function(s) { s.classList.remove('selected'); });
+    this.classList.add('selected');
+
+    // Advance after short delay
+    setTimeout(function() {
+      if (step < 4) {
+        goToStep(step + 1);
+      } else {
+        showResult();
+      }
+    }, 300);
+  });
+});
+
+function goToStep(stepNum) {
+  document.querySelectorAll('.form-step').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('step' + stepNum).classList.add('active');
+  updateDots(stepNum);
+}
+
+function updateDots(currentStep) {
+  var dots = document.querySelectorAll('.step-dot');
+  dots.forEach(function(dot, i) {
+    dot.classList.remove('active', 'completed');
+    if (i + 1 === currentStep) dot.classList.add('active');
+    else if (i + 1 < currentStep) dot.classList.add('completed');
+  });
+}
+
+function showResult() {
+  // Hide form steps and dots
+  document.querySelectorAll('.form-step').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('stepIndicator').style.display = 'none';
+
+  var q1 = answers[1];
+  var q2 = answers[2];
+  var q4 = answers[4];
+
+  var facturaAlto = (q2 === '3000-10000' || q2 === 'mas10000');
+
+  // NO CALIFICA: no tiene tienda
+  if (q1 === 'no') {
+    document.getElementById('resultNoCalifica').classList.add('active');
+    return;
+  }
+
+  // NO CALIFICA: factura <$1000
+  if (q2 === 'menos1000') {
+    document.getElementById('resultNoCalifica').classList.add('active');
+    return;
+  }
+
+  // NO CALIFICA: factura <$3000 Y no puede invertir
+  if (!facturaAlto && q4 === 'no') {
+    document.getElementById('resultNoCalifica').classList.add('active');
+    return;
+  }
+
+  // ZONA GRIS: factura $1000-$3000 (pero puede invertir)
+  if (q2 === '1000-3000') {
+    document.getElementById('resultZonaGris').classList.add('active');
+    initCalendly();
+    return;
+  }
+
+  // CALIFICA: factura $3000+ (Calendly siempre, independiente de pregunta 4)
+  if (facturaAlto) {
+    document.getElementById('resultCalifica').classList.add('active');
+    initCalendly();
+    return;
+  }
+
+  // Fallback: zona gris
+  document.getElementById('resultZonaGris').classList.add('active');
+  initCalendly();
+}
+
+function initCalendly() {
+  if (window.Calendly) {
+    document.querySelectorAll('.calendly-inline-widget').forEach(function(widget) {
+      if (widget.closest('.form-result.active')) {
+        Calendly.initInlineWidget({
+          url: 'https://calendly.com/aldanaalomas/reunion-de-estrategia-publicitaria',
+          parentElement: widget
+        });
+      }
+    });
+  }
+}
+</script>
+<script>
+const revealItems = document.querySelectorAll('.reveal-item');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+revealItems.forEach(item => revealObserver.observe(item));
+
+
+// CTA final scroll reveal
+const ctaReveals = document.querySelectorAll('.cta-reveal');
+const ctaObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+ctaReveals.forEach(item => ctaObserver.observe(item));
+
+// ===== SERVICE FORM =====
+var svcAnswers = {};
+
+document.querySelectorAll('.svc-option').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var step = parseInt(this.dataset.svcStep);
+    var value = this.dataset.svcValue;
+    svcAnswers[step] = value;
+
+    var siblings = this.parentElement.querySelectorAll('.svc-option');
+    siblings.forEach(function(s) { s.classList.remove('selected'); });
+    this.classList.add('selected');
+
+    setTimeout(function() {
+      if (step === 1 && value === 'no') {
+        svcShowResult();
+      } else if (step < 4) {
+        svcGoToStep(step + 1);
+      } else {
+        svcShowResult();
+      }
+    }, 300);
+  });
+});
+
+function svcAdvanceText() {
+  var val = document.getElementById('svcProducto').value.trim();
+  if (!val) return;
+  svcAnswers[3] = val;
+  svcGoToStep(4);
+}
+
+document.getElementById('svcProducto').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') { e.preventDefault(); svcAdvanceText(); }
+});
+
+function svcGoToStep(stepNum) {
+  document.querySelectorAll('.svc-form-step').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('svcStep' + stepNum).classList.add('active');
+  svcUpdateDots(stepNum);
+}
+
+function svcUpdateDots(currentStep) {
+  var dots = document.querySelectorAll('.svc-step-dot');
+  dots.forEach(function(dot, i) {
+    dot.classList.remove('active', 'completed');
+    if (i + 1 === currentStep) dot.classList.add('active');
+    else if (i + 1 < currentStep) dot.classList.add('completed');
+  });
+}
+
+function svcShowResult() {
+  document.querySelectorAll('.svc-form-step').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('svcStepIndicator').style.display = 'none';
+
+  // NO CALIFICA: no tiene tienda activa
+  if (svcAnswers[1] === 'no') {
+    document.getElementById('svcResultNo').classList.add('active');
+    return;
+  }
+
+  var facturacion = svcAnswers[2];
+
+  // FACTURA < 10K → PROGRAMA
+  if (facturacion === 'menos10000') {
+    document.getElementById('svcResultPrograma').classList.add('active');
+    return;
+  }
+
+  // PEZ GORDO: mas50000
+  if (facturacion === 'mas50000') {
+    document.getElementById('svcResultPezGordo').classList.add('active');
+    initSvcCalendly();
+    return;
+  }
+
+  // CALIFICA: 10000-30000 o 30000-50000
+  document.getElementById('svcResultSi').classList.add('active');
+  initSvcCalendly();
+}
+
+function initSvcCalendly() {
+  if (window.Calendly) {
+    var widget = document.querySelector('.svc-form-result.active .svc-calendly');
+    if (widget) {
+      Calendly.initInlineWidget({
+        url: 'https://calendly.com/aldanaalomas/reunion-de-estrategia-publicitaria',
+        parentElement: widget
+      });
+    }
+  }
+}
+
+// Cliente cards scroll reveal
+const clienteReveals = document.querySelectorAll('.cliente-reveal');
+const clienteObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+clienteReveals.forEach(item => clienteObserver.observe(item));
+
+
+</script>
+</body>
+</html>
