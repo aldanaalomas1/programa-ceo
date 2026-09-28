@@ -1,0 +1,104 @@
+{%- comment -%}
+  Aviso de compras recientes con pedidos REALES.
+  Fuente principal: metaobjects "compra_reciente" (los crea Shopify Flow con cada pedido pagado).
+  Respaldo: metafield shop.metafields.custom.compras_recientes (JSON cargado a mano). Las dos fuentes se combinan.
+  Campos: n=nombre, c=ciudad, p=producto, h=handle del producto, t=fecha ISO del pedido, d=fecha México AAAA-MM-DD (opcional, se calcula en JS).
+  No inventa nada: si no hay datos, no muestra nada.
+{%- endcomment -%}
+{%- assign filas = shop.metaobjects.compra_reciente.values -%}
+{%- assign compras = shop.metafields.custom.compras_recientes.value -%}
+{%- assign hay_datos = false -%}
+{%- capture datos_json -%}[{%- for f in filas -%}{"n":{{ f.nombre | json }},"c":{{ f.ciudad | json }},"p":{{ f.producto | json }},"h":{{ f.producto_handle | json }},"t":{{ f.fecha | date: "%s" | default: 0 }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]{%- endcapture -%}
+{%- if filas and filas.size > 0 -%}{%- assign hay_datos = true -%}{%- endif -%}
+{%- if compras and compras.size > 0 -%}{%- assign hay_datos = true -%}{%- endif -%}
+{%- if hay_datos -%}
+<div id="compras-recientes" class="cr-toast" role="status" aria-live="polite" hidden>
+  <a class="cr-toast__link" href="#">
+    <img class="cr-toast__img" src="" alt="" width="48" height="48" loading="lazy">
+    <span class="cr-toast__text">
+      <strong class="cr-toast__title"></strong>
+      <span class="cr-toast__meta"></span>
+    </span>
+  </a>
+  <button type="button" class="cr-toast__close" aria-label="Cerrar">&times;</button>
+</div>
+<script type="application/json" id="compras-recientes-data">{{ datos_json }}</script>
+<script type="application/json" id="compras-recientes-respaldo">{% if compras and compras.size > 0 %}{{ compras | json }}{% else %}[]{% endif %}</script>
+<style>
+  .cr-toast{position:fixed;left:12px;bottom:88px;z-index:60;max-width:calc(100vw - 24px);width:320px;background:#fff;border:2px solid #ff8402;border-radius:16px;box-shadow:0 6px 24px rgba(71,33,16,.18);padding:10px 36px 10px 10px;font-family:var(--main-font-stack, sans-serif);transform:translateY(20px);opacity:0;transition:transform .35s ease,opacity .35s ease}
+  .cr-toast.is-visible{transform:translateY(0);opacity:1}
+  .cr-toast__link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#472110}
+  .cr-toast__img{width:48px;height:48px;border-radius:10px;object-fit:cover;flex:none;background:#ffe1f3}
+  .cr-toast__text{display:flex;flex-direction:column;line-height:1.25;font-size:14px}
+  .cr-toast__title{color:#472110;font-weight:700}
+  .cr-toast__meta{color:#ff8402;font-size:12px;margin-top:2px}
+  .cr-toast__close{position:absolute;top:4px;right:8px;background:none;border:0;font-size:20px;line-height:1;color:#ff8402;cursor:pointer;padding:4px}
+  @media (min-width:990px){.cr-toast{bottom:24px;left:24px}}
+</style>
+<script>
+(function(){
+  try{
+    if (sessionStorage.getItem('crToastOff')) return;
+    var el=document.getElementById('compras-recientes'); if(!el) return;
+    var data=JSON.parse(document.getElementById('compras-recientes-data').textContent||'[]');
+    var respaldo=[]; try{ respaldo=JSON.parse((document.getElementById('compras-recientes-respaldo')||{}).textContent||'[]'); }catch(e){}
+    /* Se combinan metaobjects (Flow) y la lista de respaldo */
+    data=data.concat(respaldo);
+    if(!data.length) return;
+    var handle=(window.location.pathname.match(/\/products\/([^\/?#]+)/)||[])[1];
+    var fechaMX=function(ms){ try{ return new Date(ms).toLocaleDateString('en-CA',{timeZone:'America/Mexico_City'}); }catch(e){ return ''; } };
+    data.forEach(function(o){
+      o.ms = typeof o.t==='number' ? o.t*1000 : (o.t ? Date.parse(o.t) : (o.d ? Date.parse(o.d+'T12:00:00-06:00') : 0));
+      if(!o.d && o.ms) o.d=fechaMX(o.ms);
+    });
+    data.sort(function(a,b){ return (b.ms||0)-(a.ms||0); });
+    /* Repetidos (misma persona, mismo producto, mismo día) se muestran una sola vez */
+    var vistos={};
+    data=data.filter(function(o){ var k=(o.n||'')+'|'+(o.h||'')+'|'+(o.d||''); if(vistos[k]) return false; vistos[k]=1; return true; });
+    var pool=data.slice(0,20);
+    /* En la ficha de un producto, priorizar pedidos de ese producto solo si hay 3 o más personas distintas */
+    if(handle){ var same=pool.filter(function(o){return o.h===handle}); var nombres={}; same.forEach(function(o){nombres[o.n]=1}); if(Object.keys(nombres).length>=3) pool=same; }
+    var img=el.querySelector('.cr-toast__img'), link=el.querySelector('.cr-toast__link'), title=el.querySelector('.cr-toast__title'), meta=el.querySelector('.cr-toast__meta');
+    /* El índice sigue entre páginas para no repetir siempre los mismos nombres */
+    var idx=0, shown=0, maxShown=4;
+    try{ idx=parseInt(sessionStorage.getItem('crIdx')||'0',10)||0; }catch(e){}
+    // Fecha de hoy en hora de México (se conserva para el orden, no se muestra al cliente).
+    var hoy=new Date().toLocaleDateString('en-CA',{timeZone:'America/Mexico_City'});
+    /* No se filtra por 'hoy': rota entre los últimos pedidos para no repetir siempre el mismo nombre */
+    /* HALLOWEEN 2026: el pedido REAL más reciente de Spooky bags siempre entra en la rotación y es el primero que se ve en la sesión.
+       Para sacarlo cuando cambie la home: dejar destacado=''. */
+    var destacado='spooky-bags';
+    var dest=destacado?data.filter(function(o){return o.h===destacado})[0]:null;
+    if(dest){
+      pool=pool.filter(function(o){return o.h!==destacado}); pool.unshift(dest);
+      try{ if(!sessionStorage.getItem('crDest')){ idx=0; sessionStorage.setItem('crDest','1'); } }catch(e){}
+    }
+    /* Nunca se muestra hora ni 'hace N horas': solo la ciudad si existe */
+    function metaHoy(o){ return o.c ? o.c : ''; }
+    function show(){
+      if(shown>=maxShown) return;
+      var o=pool[idx%pool.length]; idx++; shown++;
+      try{ sessionStorage.setItem('crIdx', String(idx%pool.length)); }catch(e){}
+      var quien=o.n?o.n:'Alguien';
+      if(dest && o.h===destacado){
+        title.textContent=quien+' apartó '+o.p+' 🎃';
+        meta.textContent=metaHoy(o);
+      } else if(o.d===hoy){
+        title.textContent=quien+' compró '+o.p;
+        meta.textContent=metaHoy(o);
+      } else {
+        title.textContent=quien+' compró '+o.p;
+        meta.textContent=metaHoy(o);
+      }
+      link.href='/products/'+o.h;
+      fetch('/products/'+o.h+'.js').then(function(r){return r.ok?r.json():null}).then(function(p){ if(p&&p.featured_image){ img.src=p.featured_image.replace(/(\.[a-z]+)(\?|$)/i,'_100x100$1$2'); } }).catch(function(){});
+      el.hidden=false; requestAnimationFrame(function(){ el.classList.add('is-visible'); });
+      setTimeout(function(){ el.classList.remove('is-visible'); setTimeout(function(){ el.hidden=true; },400); }, 6000);
+      setTimeout(show, 22000);
+    }
+    el.querySelector('.cr-toast__close').addEventListener('click',function(){ el.hidden=true; sessionStorage.setItem('crToastOff','1'); });
+    setTimeout(show, 7000);
+  }catch(e){}
+})();
+</script>
+{%- endif -%}
