@@ -1,0 +1,403 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "display_on_card": false,
+            "heading_size": "heading-standard",
+            "text_align": "text-left"
+          }
+        },
+        "revie_reviews_por_whatsapp_app_block_GVkAMA": {
+          "type": "shopify://apps/revie-reviews-por-whatsapp/blocks/app-block/32a49769-cfbe-4f29-8b19-1ae20fdb2abe",
+          "settings": {
+            "star_color": "#ff8402",
+            "text_color": "#ff8402",
+            "star_text_2": "reseñas",
+            "star_text_singular": "reseña",
+            "size": 25,
+            "showcero": "2",
+            "format": "2",
+            "utm": "2"
+          }
+        },
+        "text_bTVUE3": {
+          "type": "text",
+          "settings": {
+            "display_on_card": false,
+            "text": "CONTENIDO: {{ product.metafields.custom.gramaje.value }}",
+            "icon": "none"
+          }
+        },
+        "variant_picker_XbPWHt": {
+          "type": "variant_picker",
+          "settings": {
+            "display_on_card": false,
+            "option_style": "drop_down",
+            "full_width_buttons": false,
+            "hide_option_labels": true,
+            "enable_color_swatches": false
+          },
+          "disabled": true
+        },
+        "price_PG3AD6": {
+          "type": "price",
+          "settings": {
+            "display_on_card": false,
+            "show_on_sale_sticker": false,
+            "text_align": "text-left"
+          }
+        },
+        "text_pedidos": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "display_on_card": false,
+            "text": "{{ product.metafields.custom.pedidos_30d_texto.value }}",
+            "icon": "none"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {
+            "display_on_card": false,
+            "show_label": true
+          }
+        },
+        "baf3083e-d14d-435d-bca3-100d6ac490ce": {
+          "type": "buy_buttons",
+          "settings": {
+            "display_on_card": false,
+            "enable_payment_button": false,
+            "show_price": false,
+            "show_compare_at_price": false,
+            "show_pickup_availability": false,
+            "show_gift_card_recipient": false
+          }
+        },
+        "buunto_delivery_date_picker_app_block_product_z4WTap": {
+          "type": "shopify://apps/buunto-delivery-date-picker/blocks/app-block-product/c25d727a-3911-41c0-b858-6dd551b40d5b",
+          "settings": {
+            "disableSubmitButton": true
+          }
+        },
+        "text_4GnKGg": {
+          "type": "text",
+          "settings": {
+            "display_on_card": false,
+            "text": "Envío $120 a todo México y gratis desde $799. Si tu domicilio está en zona extendida, elige esa opción al pagar.",
+            "icon": "price_tag"
+          }
+        },
+        "revie_reviews_por_whatsapp_app_block_3_btLhfU": {
+          "type": "shopify://apps/revie-reviews-por-whatsapp/blocks/app-block-3/32a49769-cfbe-4f29-8b19-1ae20fdb2abe",
+          "disabled": true,
+          "settings": {
+            "title": "Reseñas",
+            "format": "3",
+            "title_color": "#ff8402",
+            "title_size": 29,
+            "title_pos": "center",
+            "star_color": "#ff8402",
+            "size": 12,
+            "back_color": "#ffe4f8",
+            "text_color": "#ff8402",
+            "size_text": 10,
+            "name": "2",
+            "truncate": "2",
+            "max_reviews": 10,
+            "image": "1",
+            "from": "2",
+            "width_elements": 4,
+            "content_padding": 6,
+            "mobil_content_padding": 6,
+            "movil_count": "1.5",
+            "max_width": 2160
+          }
+        },
+        "a17e90c4-acc9-4f1d-af84-828ae4cb2289": {
+          "type": "description",
+          "settings": {
+            "display_on_card": false,
+            "truncate_description": false,
+            "text_align": "text-left"
+          }
+        },
+        "tab_envio": {
+          "type": "collapsible_tab",
+          "settings": {
+            "display_on_card": false,
+            "icon": "box",
+            "heading": "Envío",
+            "uppercase_text": false,
+            "content": "<p>Nuestros productos se preparan bajo pedido. El tiempo de elaboración es de 1 a 3 días hábiles, MÁS el tiempo de envío según la paquetería.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_MGKBKG": {
+          "type": "collapsible_tab",
+          "settings": {
+            "display_on_card": false,
+            "icon": "plane",
+            "heading": "¿Vas a salir de viaje?",
+            "uppercase_text": false,
+            "content": "<p>Si necesitas recibir tu pedido antes de una fecha específica, <strong>selecciona DHL</strong> al finalizar tu compra y <strong>escríbenos en las notas del pedido la fecha en la que sales de viaje</strong>.</p><p><strong>Recuerda considerar tanto nuestros tiempos de preparación (1 a 3 días hábiles) como los tiempos de envío de la paquetería</strong> para asegurarte de que tu pedido llegue a tiempo.</p><p>Si tienes cualquier duda, <strong>contáctanos por Instagram antes de realizar tu compra</strong> y con gusto te ayudaremos a elegir la mejor opción. </p>",
+            "page": ""
+          }
+        },
+        "tab_devolucion": {
+          "type": "collapsible_tab",
+          "settings": {
+            "display_on_card": false,
+            "icon": "return",
+            "heading": "Devolución",
+            "uppercase_text": false,
+            "content": "<p>Por la naturaleza de nuestros productos (alimentos preparados bajo pedido), no aceptamos devoluciones. Si tu pedido llega dañado o incompleto, contáctanos dentro de las primeras 24 horas con fotos del paquete y te lo resolvemos.</p>",
+            "page": ""
+          }
+        },
+        "tab_garantia": {
+          "type": "collapsible_tab",
+          "settings": {
+            "display_on_card": false,
+            "icon": "check_mark",
+            "heading": "Garantía",
+            "uppercase_text": false,
+            "content": "<p>Garantizamos que tu pedido llegará en perfectas condiciones. Si detectas algún problema con la calidad o el empaque, escríbenos por Instagram o WhatsApp y lo solucionamos de inmediato.</p>",
+            "page": ""
+          }
+        },
+        "complementary_E3jCHh": {
+          "type": "complementary",
+          "settings": {
+            "block_heading": "Uno nunca es suficiente",
+            "product_list_limit": 4,
+            "product_tile_style": "mini",
+            "enable_quick_buy": true
+          }
+        },
+        "payment_icons_ch271": {
+          "type": "liquid",
+          "settings": {
+            "display_on_card": false,
+            "liquid": "{%- comment -%} Formas de pago debajo del botón de compra {%- endcomment -%}\n<style>\n  .ch-pay { margin-top: 12px; }\n  .ch-pay__label { display:block; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--color-scheme-text); opacity:.85; margin-bottom:8px; }\n  .ch-pay__list { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:0; padding:0; list-style:none; }\n  .ch-pay__list li { display:block; line-height:0; }\n  .ch-pay__list svg { width:38px; height:24px; display:block; border-radius:4px; }\n  .ch-pay__badge { display:inline-flex; align-items:center; justify-content:center; height:24px; min-width:38px; padding:0 8px; border-radius:4px; font-family:-apple-system,BlinkMacSystemFont,\"Helvetica Neue\",Arial,sans-serif; font-size:10px; font-weight:700; line-height:1; letter-spacing:.01em; white-space:nowrap; box-shadow:0 0 0 1px rgba(0,0,0,.08) inset; }\n  .ch-pay__logo { display:inline-flex; align-items:center; height:24px; padding:0 6px; border-radius:4px; background:#fff; box-shadow:0 0 0 1px rgba(0,0,0,.08) inset; }\n  .ch-pay__logo img { height:18px; width:auto; display:block; }\n  .ch-pay__badge--mp { background:#009ee3; color:#fff; }\n  .ch-pay__badge--alt { background:var(--color-scheme-accent-2); color:var(--color-scheme-accent-2-contrast); }\n</style>\n<div class=\"ch-pay\">\n  <span class=\"ch-pay__label font-heading\">Paga con</span>\n  <ul class=\"ch-pay__list\" aria-label=\"Formas de pago\">\n    {%- assign types = shop.enabled_payment_types -%}\n    {%- if types.size == 0 -%}\n      {%- assign types = 'visa,master,american_express,paypal,apple_pay,google_pay' | split: ',' -%}\n    {%- endif -%}\n    {%- for type in types -%}\n      <li>{{ type | payment_type_svg_tag: class: 'ch-pay__icon' }}</li>\n    {%- endfor -%}\n    {%- comment -%} Logos subidos en Contenido > Archivos: mercado-pago.png y kueski-pay.png. Si no existen, se muestra un badge de texto. {%- endcomment -%}\n    {%- assign mp_logo = images['mercado-pago.png'] -%}\n    {%- assign kueski_logo = images['kueski-pay.png'] -%}\n    {%- unless types contains 'mercado_pago' -%}\n      {%- if mp_logo.src -%}<li><span class=\"ch-pay__logo\"><img src=\"{{ mp_logo | image_url: height: 48 }}\" alt=\"Mercado Pago\" height=\"24\" loading=\"lazy\"></span></li>\n      {%- else -%}<li><span class=\"ch-pay__badge ch-pay__badge--mp\">mercado pago</span></li>{%- endif -%}\n    {%- endunless -%}\n    {%- unless types contains 'kueski' -%}\n      {%- if kueski_logo.src -%}<li><span class=\"ch-pay__logo\"><img src=\"{{ kueski_logo | image_url: height: 48 }}\" alt=\"Kueski Pay\" height=\"24\" loading=\"lazy\"></span></li>\n      {%- else -%}<li><span class=\"ch-pay__badge ch-pay__badge--alt\">Kueski Pay</span></li>{%- endif -%}\n    {%- endunless -%}\n  </ul>\n</div>\n"
+          }
+        },
+        "pack_cards_ch271": {
+          "type": "liquid",
+          "settings": {
+            "display_on_card": false,
+            "liquid": "{%- comment -%} Selector de packs estilo tarjetas (reemplaza al selector de variantes) {%- endcomment -%}\n{%- unless product.has_only_default_variant -%}\n<style>\n  .ch-packs { border:0; margin:0; padding:0; }\n  .ch-packs__legend { display:block; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--color-scheme-text); opacity:.85; margin-bottom:8px; }\n  .ch-packs__list { display:grid; gap:10px; }\n  .ch-packs__item { position:relative; }\n  .ch-packs__card { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; border-radius:14px; cursor:pointer; background:var(--color-scheme-accent-2); color:var(--color-scheme-accent-2-contrast); border:2px solid transparent; transition:transform .15s, background .15s; }\n  .ch-packs__item input:checked + .ch-packs__card { background:#ff8402; color:#fff; border-color:#fff; box-shadow:0 4px 0 0 rgba(0,0,0,.25); transform:translateY(-2px); }\n  .ch-packs__item input:focus-visible + .ch-packs__card { outline:3px solid #fff; outline-offset:2px; }\n  .ch-packs__title { display:block; font-size:18px; line-height:1.1; }\n  .ch-packs__meta { display:block; font-size:13px; opacity:.8; margin-top:4px; }\n  .ch-packs__price { text-align:right; white-space:nowrap; }\n  .ch-packs__now { font-size:18px; }\n  .ch-packs__badge { position:absolute; top:-10px; right:12px; z-index:1; font-size:11px; letter-spacing:.04em; text-transform:uppercase; padding:3px 10px; border-radius:999px; background:#000; color:#fff; }\n  .ch-packs__item--soldout .ch-packs__card { opacity:.45; text-decoration:line-through; }\n  .ch-packs__free { font-weight:700; opacity:1; }\n  .ch-packs__fallback { width:100%; }\n</style>\n{%- if product.options.size == 1 -%}\n  {%- assign option = product.options_with_values[0] -%}\n  {%- assign popular_index = 2 -%}{%- comment -%} 0 = primera opción; 2 = tercera (20 piezas) {%- endcomment -%}\n  {%- assign free_shipping_from = 79900 -%}{%- comment -%} en centavos: $799 {%- endcomment -%}\n  {%- assign base_variant = product.variants.first -%}\n  {%- assign base_units = base_variant.title | split: ' ' | first | plus: 0 -%}\n  {%- assign base_unit_price = 0 -%}\n  {%- if base_units > 0 -%}\n    {%- assign base_unit_price = base_variant.price | times: 1.0 | divided_by: base_units -%}\n  {%- endif -%}\n  <fieldset class=\"ch-packs product-variant-picker-block js-enabled\">\n    <legend class=\"ch-packs__legend font-heading\">Elige tu pack</legend>\n    <div class=\"ch-packs__list\">\n      {%- for value in option.values -%}\n        {%- assign variant = product.variants[forloop.index0] -%}\n        {%- assign units = value | split: ' ' | first | plus: 0 -%}\n        {%- assign saving = 0 -%}\n        {%- assign unit_price = 0 -%}\n        {%- if units > 0 and base_unit_price > 0 -%}\n          {%- assign unit_price = variant.price | times: 1.0 | divided_by: units -%}\n          {%- assign ratio = unit_price | times: 100 | divided_by: base_unit_price | round -%}\n          {%- assign saving = 100 | minus: ratio -%}\n        {%- endif -%}\n        {%- assign badge = '' -%}\n        {%- if forloop.index0 == popular_index -%}\n          {%- assign badge = 'Más popular' -%}\n        {%- endif -%}\n        <div class=\"ch-packs__item variant-input {% unless variant.available %}ch-packs__item--soldout{% endunless %}\">\n          {%- if badge != '' -%}<span class=\"ch-packs__badge font-heading\">{{ badge }}</span>{%- endif -%}\n          <input\n            class=\"custom-button peer absolute left-0 top-0 h-full w-full cursor-pointer opacity-0\"\n            @change=\"optionChange\"\n            type=\"radio\"\n            id=\"Section-{{ section.id }}-Option{{ option.position }}-{{ value | escape }}\"\n            name=\"Section-{{ section.id }}-options[{{ option.name }}]\"\n            value=\"{{ value | escape }}\"\n            data-handle=\"{{ value | handleize }}\"\n            {% if option.selected_value == value %}checked{% endif %}\n            data-single-option-selector\n            data-position=\"{{ option.position }}\"\n          >\n          <label\n            class=\"ch-packs__card\"\n            for=\"Section-{{ section.id }}-Option{{ option.position }}-{{ value | escape }}\"\n          >\n            <span>\n              <span class=\"ch-packs__title font-heading\">{{ value }}</span>\n              <span class=\"ch-packs__meta\">\n                {%- if unit_price > 0 -%}{{ unit_price | round | money }} por pieza{%- endif -%}\n                {%- if variant.price >= free_shipping_from -%}<span class=\"ch-packs__free\"> · Envío gratis</span>{%- endif -%}\n                {%- unless variant.available -%}Agotado{%- endunless -%}\n              </span>\n            </span>\n            <span class=\"ch-packs__price\">\n              <span class=\"ch-packs__now font-heading\">{{ variant.price | money }}</span>\n            </span>\n          </label>\n        </div>\n      {%- endfor -%}\n    </div>\n  </fieldset>\n{%- else -%}\n  {%- comment -%} Productos con más de una opción: selector simple {%- endcomment -%}\n  {%- for option in product.options_with_values -%}\n    <div class=\"my-1\">\n      <label class=\"ch-packs__legend\" for=\"Option{{ option.position }}-{{ section.id }}\">{{ option.name }}</label>\n      <select id=\"Option{{ option.position }}-{{ section.id }}\" name=\"options[{{ option.name | escape }}]\" @change=\"optionChange\" class=\"single-option-selector font-body input ch-packs__fallback\" data-single-option-selector data-position=\"{{ option.position }}\">\n        {%- for value in option.values -%}\n          <option value=\"{{ value | escape }}\" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>\n        {%- endfor -%}\n      </select>\n    </div>\n  {%- endfor -%}\n{%- endif -%}\n{%- endunless -%}\n"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "revie_reviews_por_whatsapp_app_block_GVkAMA",
+        "text_bTVUE3",
+        "variant_picker_XbPWHt",
+        "pack_cards_ch271",
+        "price_PG3AD6",
+        "text_pedidos",
+        "quantity_selector",
+        "baf3083e-d14d-435d-bca3-100d6ac490ce",
+        "payment_icons_ch271",
+        "buunto_delivery_date_picker_app_block_product_z4WTap",
+        "text_4GnKGg",
+        "revie_reviews_por_whatsapp_app_block_3_btLhfU",
+        "a17e90c4-acc9-4f1d-af84-828ae4cb2289",
+        "tab_envio",
+        "collapsible_tab_MGKBKG",
+        "tab_devolucion",
+        "tab_garantia",
+        "complementary_E3jCHh"
+      ],
+      "custom_css": [
+        "p {font-size: 22px; font-family: \"Gopher\";}",
+        "span.money {font-size: 23px; font-family: \"Gopher\";}",
+        ".text-sm {font-size: 18px; font-family: \"Gopher\";}",
+        ".text-base {font-size: 18px; font-family: \"Gopher\";}"
+      ],
+      "settings": {
+        "crop": "aspect-w-1 aspect-h-1",
+        "image_shape": "default",
+        "desktop_media_width": "lg:col-span-6_lg:col-span-6",
+        "show_slideshow_arrows_on_desktop": false,
+        "enable_image_zoom": false,
+        "enable_video_looping": true,
+        "autoplay_videos_on_desktop": true,
+        "media_mobile_width": "w-full",
+        "thumbnails_position": "under",
+        "thumbnail_crop": "aspect-w-1 aspect-h-1",
+        "thumbnail_shape": "default",
+        "thumbnail_size": "standard",
+        "show_thumbnails_on_mobile": true,
+        "mobile_thumbnails_layout": "carousel",
+        "hide_media_shadow": false,
+        "color_scheme": "scheme2",
+        "use_gradient_background": false,
+        "enable_sticky_add_to_cart": true
+      }
+    },
+    "ss_progress_bars_43g9F3": {
+      "type": "ss-progress-bars",
+      "blocks": {
+        "progress_bar_3B4kKn": {
+          "type": "progress_bar",
+          "disabled": true,
+          "settings": {
+            "title": "Mezcla de sabores",
+            "progress": 100,
+            "hide_percent": false
+          }
+        },
+        "progress_bar_YzFkKa": {
+          "type": "progress_bar",
+          "settings": {
+            "title": "🌶️ Picosito",
+            "progress": 55,
+            "hide_percent": false
+          }
+        },
+        "progress_bar_zfaq4K": {
+          "type": "progress_bar",
+          "settings": {
+            "title": "🤤 Antojo",
+            "progress": 100,
+            "hide_percent": false
+          }
+        }
+      },
+      "block_order": [
+        "progress_bar_3B4kKn",
+        "progress_bar_YzFkKa",
+        "progress_bar_zfaq4K"
+      ],
+      "disabled": true,
+      "name": "SS - Progress Bars",
+      "settings": {
+        "heading": "",
+        "heading_custom": false,
+        "heading_font": "josefin_sans_n4",
+        "heading_size": 0,
+        "heading_size_mobile": 0,
+        "heading_height": 50,
+        "heading_align": "left",
+        "heading_align_mobile": "center",
+        "progress_mt": 0,
+        "progress_gap": 0,
+        "progress_gap_mobile": 10,
+        "progress_height": 10,
+        "progress_height_mobile": 10,
+        "progress_radius": 10,
+        "progress_border_thickness": 0,
+        "progress_bar_mt": 8,
+        "title_custom": false,
+        "title_font": "josefin_sans_n4",
+        "title_size": 18,
+        "title_size_mobile": 16,
+        "title_height": 150,
+        "percent_custom": false,
+        "percent_font": "josefin_sans_n4",
+        "percent_size": 18,
+        "percent_size_mobile": 16,
+        "percent_height": 150,
+        "title_color": "#f39856",
+        "percent_color": "#f39856",
+        "progress_bg_color": "#f9e0c6",
+        "progress_bg_inner_color": "#f39856",
+        "progress_border_color": "#f39856",
+        "heading_color": "#f39856",
+        "background_color": "#ffebf9",
+        "background_gradient": "",
+        "border_color": "#ffebf9",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": false,
+        "content_width": 120,
+        "border_thickness": 0
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "display_on_card": false,
+        "enable_quick_buy": true,
+        "related_products_heading": "¿Y si agregas uno de estos?",
+        "max_products": "3",
+        "product_tiles_aspect_ratio": "aspect-w-1 aspect-h-1",
+        "image_shape": "",
+        "color_scheme": "scheme3",
+        "use_gradient_background": false
+      }
+    },
+    "1747153937bd59b271": {
+      "type": "apps",
+      "blocks": {
+        "revie_reviews_por_whatsapp_revie_bento_wall_v2_hhd4KR": {
+          "type": "shopify://apps/revie-reviews-por-whatsapp/blocks/revie-bento-wall-v2/32a49769-cfbe-4f29-8b19-1ae20fdb2abe",
+          "settings": {
+            "show_title": true,
+            "title": "Reviews de clientes",
+            "title_color": "#ff8402",
+            "title_size": 34,
+            "title_pos": "left",
+            "show_overview": false,
+            "title_stars": "reseñas verificadas",
+            "image": "3",
+            "max_reviews": 13,
+            "large_every": 6,
+            "columns_desktop": 4,
+            "columns_tablet": 2,
+            "row_height": 190,
+            "gap": 16,
+            "card_radius": 20,
+            "star_color": "#ff8402",
+            "text_color": "#472110",
+            "card_back_color": "#ffffff",
+            "border_color": "#ff8402",
+            "accent_color": "#ff8402",
+            "modal_cta_color": "#ffbcf4",
+            "modal_cta_text_color": "#ffffff",
+            "max_width": 1200,
+            "content_padding": 48
+          }
+        }
+      },
+      "block_order": [
+        "revie_reviews_por_whatsapp_revie_bento_wall_v2_hhd4KR"
+      ],
+      "settings": {
+        "apply_vertical_spacing": true,
+        "apply_horizontal_spacing": true,
+        "display_on_card": false,
+        "content_width_desktop": "lg:w-full",
+        "color_scheme": "scheme3",
+        "use_gradient_background": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "ss_progress_bars_43g9F3",
+    "related-products",
+    "1747153937bd59b271"
+  ]
+}
