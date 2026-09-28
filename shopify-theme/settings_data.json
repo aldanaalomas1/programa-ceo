@@ -206,23 +206,23 @@
           "gradient": "",
           "accent_1": "#ffffff",
           "accent_1_contrast": "#000000",
-          "accent_2": "#ffcae7",
-          "accent_2_contrast": "#000000",
+          "accent_2": "#3b2378",
+          "accent_2_contrast": "#ffffff",
           "card_text": "#000000",
           "card": "#ffffff"
         }
       },
       "scheme3": {
         "settings": {
-          "text": "#e37bb4",
-          "text_contrast": "#ffcae7",
+          "text": "#3b2378",
+          "text_contrast": "#ffffff",
           "background": "#ede9fe",
           "gradient": "radial-gradient(rgba(178, 166, 242, 1) 2%, rgba(192, 226, 126, 1) 55%, rgba(186, 205, 255, 1) 100%)",
           "accent_1": "#000000",
           "accent_1_contrast": "#ffffff",
-          "accent_2": "#e37bb4",
+          "accent_2": "#3b2378",
           "accent_2_contrast": "#ffffff",
-          "card_text": "#ffffff",
+          "card_text": "#3b2378",
           "card": "#cec1fd"
         }
       },
