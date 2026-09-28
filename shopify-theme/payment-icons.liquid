@@ -1,0 +1,37 @@
+{%- comment -%} Formas de pago debajo del botón de compra {%- endcomment -%}
+<style>
+  .ch-pay { margin-top: 12px; }
+  .ch-pay__label { display:block; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--color-scheme-text); opacity:.85; margin-bottom:8px; }
+  .ch-pay__list { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:0; padding:0; list-style:none; }
+  .ch-pay__list li { display:block; line-height:0; }
+  .ch-pay__list svg { width:38px; height:24px; display:block; border-radius:4px; }
+  .ch-pay__badge { display:inline-flex; align-items:center; justify-content:center; height:24px; min-width:38px; padding:0 8px; border-radius:4px; font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif; font-size:10px; font-weight:700; line-height:1; letter-spacing:.01em; white-space:nowrap; box-shadow:0 0 0 1px rgba(0,0,0,.08) inset; }
+  .ch-pay__logo { display:inline-flex; align-items:center; height:24px; padding:0 6px; border-radius:4px; background:#fff; box-shadow:0 0 0 1px rgba(0,0,0,.08) inset; }
+  .ch-pay__logo img { height:18px; width:auto; display:block; }
+  .ch-pay__badge--mp { background:#009ee3; color:#fff; }
+  .ch-pay__badge--alt { background:var(--color-scheme-accent-2); color:var(--color-scheme-accent-2-contrast); }
+</style>
+<div class="ch-pay">
+  <span class="ch-pay__label font-heading">Paga con</span>
+  <ul class="ch-pay__list" aria-label="Formas de pago">
+    {%- assign types = shop.enabled_payment_types -%}
+    {%- if types.size == 0 -%}
+      {%- assign types = 'visa,master,american_express,paypal,apple_pay,google_pay' | split: ',' -%}
+    {%- endif -%}
+    {%- for type in types -%}
+      <li>{{ type | payment_type_svg_tag: class: 'ch-pay__icon' }}</li>
+    {%- endfor -%}
+    {%- comment -%} Logos subidos en Contenido > Archivos: mercado-pago.png y kueski-pay.png. Si no existen, se muestra un badge de texto. {%- endcomment -%}
+    {%- assign mp_logo = images['mercado-pago.png'] -%}
+    {%- assign kueski_logo = images['kueski-pay.png'] -%}
+    {%- unless types contains 'mercado_pago' -%}
+      {%- if mp_logo.src -%}<li><span class="ch-pay__logo"><img src="{{ mp_logo | image_url: height: 48 }}" alt="Mercado Pago" height="24" loading="lazy"></span></li>
+      {%- else -%}<li><span class="ch-pay__badge ch-pay__badge--mp">mercado pago</span></li>{%- endif -%}
+    {%- endunless -%}
+    {%- unless types contains 'kueski' -%}
+      {%- if kueski_logo.src -%}<li><span class="ch-pay__logo"><img src="{{ kueski_logo | image_url: height: 48 }}" alt="Kueski Pay" height="24" loading="lazy"></span></li>
+      {%- else -%}<li><span class="ch-pay__badge ch-pay__badge--alt">Kueski Pay</span></li>{%- endif -%}
+    {%- endunless -%}
+    <li><span class="ch-pay__badge ch-pay__badge--alt">Paga después</span></li>
+  </ul>
+</div>

@@ -1,0 +1,94 @@
+{%- comment -%} Selector de packs estilo tarjetas (reemplaza al selector de variantes) {%- endcomment -%}
+{%- unless product.has_only_default_variant -%}
+<style>
+  .ch-packs { border:0; margin:0; padding:0; }
+  .ch-packs__legend { display:block; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--color-scheme-text); opacity:.85; margin-bottom:8px; }
+  .ch-packs__list { display:grid; gap:10px; }
+  .ch-packs__item { position:relative; }
+  .ch-packs__card { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; border-radius:14px; cursor:pointer; background:var(--color-scheme-accent-2); color:var(--color-scheme-accent-2-contrast); border:2px solid transparent; transition:transform .15s, background .15s; }
+  .ch-packs__item input:checked + .ch-packs__card { background:#ff8402; color:#fff; border-color:#fff; box-shadow:0 4px 0 0 rgba(0,0,0,.25); transform:translateY(-2px); }
+  .ch-packs__item input:focus-visible + .ch-packs__card { outline:3px solid #fff; outline-offset:2px; }
+  .ch-packs__title { display:block; font-size:18px; line-height:1.1; }
+  .ch-packs__meta { display:block; font-size:13px; opacity:.8; margin-top:4px; }
+  .ch-packs__price { text-align:right; white-space:nowrap; }
+  .ch-packs__now { font-size:18px; }
+  .ch-packs__badge { position:absolute; top:-10px; right:12px; z-index:1; font-size:11px; letter-spacing:.04em; text-transform:uppercase; padding:3px 10px; border-radius:999px; background:#000; color:#fff; }
+  .ch-packs__item--soldout .ch-packs__card { opacity:.45; text-decoration:line-through; }
+  .ch-packs__free { font-weight:700; opacity:1; }
+  .ch-packs__fallback { width:100%; }
+</style>
+{%- if product.options.size == 1 -%}
+  {%- assign option = product.options_with_values[0] -%}
+  {%- assign popular_index = 2 -%}{%- comment -%} 0 = primera opción; 2 = tercera (20 piezas) {%- endcomment -%}
+  {%- assign free_shipping_from = 79900 -%}{%- comment -%} en centavos: $799 {%- endcomment -%}
+  {%- assign base_variant = product.variants.first -%}
+  {%- assign base_units = base_variant.title | split: ' ' | first | plus: 0 -%}
+  {%- assign base_unit_price = 0 -%}
+  {%- if base_units > 0 -%}
+    {%- assign base_unit_price = base_variant.price | times: 1.0 | divided_by: base_units -%}
+  {%- endif -%}
+  <fieldset class="ch-packs product-variant-picker-block js-enabled">
+    <legend class="ch-packs__legend font-heading">Elige tu pack</legend>
+    <div class="ch-packs__list">
+      {%- for value in option.values -%}
+        {%- assign variant = product.variants[forloop.index0] -%}
+        {%- assign units = value | split: ' ' | first | plus: 0 -%}
+        {%- assign saving = 0 -%}
+        {%- assign unit_price = 0 -%}
+        {%- if units > 0 and base_unit_price > 0 -%}
+          {%- assign unit_price = variant.price | times: 1.0 | divided_by: units -%}
+          {%- assign ratio = unit_price | times: 100 | divided_by: base_unit_price | round -%}
+          {%- assign saving = 100 | minus: ratio -%}
+        {%- endif -%}
+        {%- assign badge = '' -%}
+        {%- if forloop.index0 == popular_index -%}
+          {%- assign badge = 'Más popular' -%}
+        {%- endif -%}
+        <div class="ch-packs__item variant-input {% unless variant.available %}ch-packs__item--soldout{% endunless %}">
+          {%- if badge != '' -%}<span class="ch-packs__badge font-heading">{{ badge }}</span>{%- endif -%}
+          <input
+            class="custom-button peer absolute left-0 top-0 h-full w-full cursor-pointer opacity-0"
+            @change="optionChange"
+            type="radio"
+            id="Section-{{ section.id }}-Option{{ option.position }}-{{ value | escape }}"
+            name="Section-{{ section.id }}-options[{{ option.name }}]"
+            value="{{ value | escape }}"
+            data-handle="{{ value | handleize }}"
+            {% if option.selected_value == value %}checked{% endif %}
+            data-single-option-selector
+            data-position="{{ option.position }}"
+          >
+          <label
+            class="ch-packs__card"
+            for="Section-{{ section.id }}-Option{{ option.position }}-{{ value | escape }}"
+          >
+            <span>
+              <span class="ch-packs__title font-heading">{{ value }}</span>
+              <span class="ch-packs__meta">
+                {%- if unit_price > 0 -%}{{ unit_price | round | money }} por pieza{%- endif -%}
+                {%- if variant.price >= free_shipping_from -%}<span class="ch-packs__free"> · Envío gratis</span>{%- endif -%}
+                {%- unless variant.available -%}Agotado{%- endunless -%}
+              </span>
+            </span>
+            <span class="ch-packs__price">
+              <span class="ch-packs__now font-heading">{{ variant.price | money }}</span>
+            </span>
+          </label>
+        </div>
+      {%- endfor -%}
+    </div>
+  </fieldset>
+{%- else -%}
+  {%- comment -%} Productos con más de una opción: selector simple {%- endcomment -%}
+  {%- for option in product.options_with_values -%}
+    <div class="my-1">
+      <label class="ch-packs__legend" for="Option{{ option.position }}-{{ section.id }}">{{ option.name }}</label>
+      <select id="Option{{ option.position }}-{{ section.id }}" name="options[{{ option.name | escape }}]" @change="optionChange" class="single-option-selector font-body input ch-packs__fallback" data-single-option-selector data-position="{{ option.position }}">
+        {%- for value in option.values -%}
+          <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+        {%- endfor -%}
+      </select>
+    </div>
+  {%- endfor -%}
+{%- endif -%}
+{%- endunless -%}
