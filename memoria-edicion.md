@@ -39,12 +39,25 @@ Cada vez que aparezca una referencia nueva, se suma acá con el *por qué* funci
 - **Tipografía de los textos fijos:** el mismo sistema que en la ref 1, que mezcla sans bold condensada, sans regular e *itálica* en la palabra que se quiere destacar. Ya es un sello de la marca.
 - **Por qué funciona:** el hook queda visible todo el video aunque esté muteado, el CTA también está siempre a la vista, y la pizarra llena de contenido transmite profundidad y método.
 
+### 3. Carrusel IG: "Tweet manuscrito" (annsahakyan_), guardado 2026-11-11
+- Capturas: `referencias/ref-03-carrusel-slide1.png`, `referencias/ref-03-carrusel-slide2.png`
+- **Formato:** carrusel de 10 slides, fondo **blanco limpio** y mucho aire.
+- **Header estilo tweet** en cada slide: foto de perfil con aro degradé de IG, nombre en sans bold, tilde de verificado y @usuario debajo. Es fijo en todas las slides.
+- **Texto en letra manuscrita prolija azul tinta,** la misma estética que la pizarra de los videos, así que es un sistema visual coherente con los reels.
+- **Slide 1 (portada):** hook en 2-3 líneas + "(De paso, guardá esto.)" para pedir el guardado de forma casual, y un botón dibujado con flecha → abajo a la derecha para invitar a deslizar.
+- **Slide 2 (prueba):** resultado concreto con números ("Este post me trajo 20 inbounds y 2 interesados directos") + **captura del post original** con esquinas redondeadas + nota manuscrita al costado que **le pone nombre al concepto** ("Yo lo llamo contenido de consciencia, vamos a desglosarlo").
+- **Estructura narrativa:** hook → prueba con números → concepto con nombre propio → desglose paso a paso → CTA.
+- **Señales:** 13 envíos y 10 comentarios. Es contenido que se comparte y se guarda, no solo que se likea.
+- **Mejora que aplicaría:** el número ("20 inbounds y 2 interesados") es más fuerte que "mi contenido favorito". Llevarlo a la slide 1. Ej: "Este tipo de post me trajo 20 inbounds en una semana. Te lo desgloso (guardalo)."
+
 ## Patrón común (mi estilo de edición)
 1. **Video horizontal dentro del 9:16.** Usar el negro para el hook (arriba) y el CTA (abajo), nunca dejarlo vacío.
 2. **Pizarra con framework** al costado (ref 1, generada con IA y prolija) o de fondo (ref 2). Siempre un sistema visible y estructurado.
 3. **Tipografía editorial mixta:** bold + regular + itálica en la palabra clave.
 4. **CTA con palabra clave en comentarios → DM con training** (lead magnet).
 5. **Talking head natural,** sin set armado, en tono de mentora o clase.
+6. **Letra manuscrita prolija en azul tinta** como hilo conductor entre la pizarra de los reels y los textos de los carruseles.
+7. **Carruseles:** fondo blanco, header estilo tweet, prueba con números y captura real en la slide 2, y un concepto con nombre propio.
 
 ## Cómo usar esta memoria
 - Al escribir un guion o un brief de edición, tomar esta lista como estándar de estilo por defecto.
