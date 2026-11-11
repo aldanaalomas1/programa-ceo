@@ -27,6 +27,25 @@ Cada vez que aparezca una referencia nueva, se suma acá con el *por qué* funci
 - **Por qué funciona:** posiciona como experta (pizarra = método), genera guardados (10 en la captura frente a pocos likes, el mapa se guarda para volver a verlo) y convierte con la keyword.
 - **Ojo (solo para ads en frío):** el 16:9 con barras negras desperdicia ~50% de la pantalla y baja el thumb-stop en tráfico frío. Usarlo en orgánico o en retargeting de "clase". Para ads en frío, adaptarlo a 9:16 con la pizarra arriba y la speaker abajo, o a 4:5.
 
+### 2. Post IG: "Pizarra de fondo + card horizontal" (annsahakyan_ / SMARTSCALE), guardado 2026-11-11
+- Captura: `referencias/ref-02-annsahakyan-pizarra-fondo.png`
+- **Formato:** video horizontal en una **card con esquinas redondeadas**, centrada sobre fondo negro 9:16. El espacio negro **se aprovecha**:
+  - **Arriba:** el hook fijo como título ("Dejá de delegar tus ideas a la IA o a un *Content Manager*").
+  - **Abajo:** el CTA fijo ("Comentá **"video"** y te envío el training *completo*").
+  - **Al pie:** el logo de la marca (SMARTSCALE) en tipografía espaciada, como firma.
+- **Pizarra:** detrás de ella, de fondo, ocupando todo el cuadro. Es un framework completo y numerado (1 al 9: Problema, El cambio, Analogía del chef, Dónde encontrar, Objeciones, Resultado) con varios colores de marcador (azul, verde, naranja, rojo), cajas, flechas y llaves. Se lee como "acá está todo el sistema".
+- **Speaker:** a la derecha del cuadro, plano medio, con anteojos. Mira levemente fuera de cámara, como en una entrevista o una clase, con luz natural.
+- **Subtítulos:** **una o dos palabras por vez, GRANDES**, blancas bold con sombra suave y superpuestas sobre la pizarra ("un mensaje"). Es otro estilo que el de la ref 1 (frase chica en el tercio inferior).
+- **Tipografía de los textos fijos:** el mismo sistema que en la ref 1, que mezcla sans bold condensada, sans regular e *itálica* en la palabra que se quiere destacar. Ya es un sello de la marca.
+- **Por qué funciona:** el hook queda visible todo el video aunque esté muteado, el CTA también está siempre a la vista, y la pizarra llena de contenido transmite profundidad y método.
+
+## Patrón común (mi estilo de edición)
+1. **Video horizontal dentro del 9:16.** Usar el negro para el hook (arriba) y el CTA (abajo), nunca dejarlo vacío.
+2. **Pizarra con framework** al costado (ref 1, generada con IA y prolija) o de fondo (ref 2). Siempre un sistema visible y estructurado.
+3. **Tipografía editorial mixta:** bold + regular + itálica en la palabra clave.
+4. **CTA con palabra clave en comentarios → DM con training** (lead magnet).
+5. **Talking head natural,** sin set armado, en tono de mentora o clase.
+
 ## Cómo usar esta memoria
 - Al escribir un guion o un brief de edición, tomar esta lista como estándar de estilo por defecto.
 - Si una referencia nueva contradice una vieja, la más reciente manda (salvo que se indique lo contrario).
