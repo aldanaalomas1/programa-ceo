@@ -8,6 +8,15 @@ Cada vez que aparezca una referencia nueva, se suma acá con el *por qué* funci
 ### 1. Reel IG: "Clase con pizarra" (annsahakyan_ + smartscale__), guardado 2026-11-11
 - Link: https://www.instagram.com/reel/DfnBxaEkpxJ/
 - Captura: `referencias/ref-01-annsahakyan-smartscale.png`
+- ✅ **LO QUE ME GUSTA (confirmado por mí):**
+  1. **Horizontal.** El formato 16:9 dentro del reel es intencional, no hay que "arreglarlo" a vertical.
+  2. **Pizarra al costado**, escrita prolija, **generada con IA** (no a mano real). Mapa limpio, legible y ordenado, con el framework del video.
+- **Cómo producir la pizarra con IA:**
+  - Entrada: los conceptos del guion, ordenados como mapa (bloques + flechas o dos columnas).
+  - Estilo: fondo blanco o cuadriculado, letra manuscrita prolija en azul oscuro, círculos/resaltado amarillo en los conceptos clave, títulos de sección más grandes.
+  - Proporción: vertical, para ocupar ~40% izquierdo del cuadro 16:9; se une con la speaker con un degradé.
+  - Opcional: revelar los resaltados a medida que se mencionan en el audio (sync con el guion).
+  - Prompt base: "Whiteboard-style concept map, clean neat handwriting in dark blue marker, yellow highlighter circles around key items, white grid background, Spanish text: [CONCEPTOS], organized in two columns with section headers, high legibility, no clutter".
 - **Formato:** cuadro horizontal 16:9 dentro del reel 9:16, con barras negras arriba y abajo. Se siente como una clase o un recorte de un training largo, no como un reel "hecho para el algoritmo". Eso le da autoridad.
 - **Composición en split con fundido:** a la izquierda, un mapa conceptual escrito a mano (pizarra/iPad) con ítems encerrados en círculos amarillos de resaltador; a la derecha, la speaker. Las dos mitades se unen con un degradé suave, sin corte duro.
 - **Framework visible:** la pizarra muestra el sistema completo (Oferta → Validación → Números/CRM → Nurture → Inbound → Pipeline → Conectar/Educar). Al ver el mapa entero, la persona siente "esta mina tiene el método", y eso dispara guardados.
@@ -16,7 +25,7 @@ Cada vez que aparezca una referencia nueva, se suma acá con el *por qué* funci
 - **Copy:** frases de tesis ("El performance de tu equipo depende directamente de tu capacidad de liderazgo"), afirmaciones con autoridad y no preguntas clickbait.
 - **CTA:** "Comentá VIDEO y te envío el training completo". Palabra clave en comentarios → DM automático (ManyChat) con lead magnet. Publicado como collab entre la persona y la marca.
 - **Por qué funciona:** posiciona como experta (pizarra = método), genera guardados (10 en la captura frente a pocos likes, el mapa se guarda para volver a verlo) y convierte con la keyword.
-- **Ojo (para ads):** el 16:9 con barras negras desperdicia ~50% de la pantalla y baja el thumb-stop en tráfico frío. Usarlo en orgánico o en retargeting de "clase". Para ads en frío, adaptarlo a 9:16 con la pizarra arriba y la speaker abajo, o a 4:5.
+- **Ojo (solo para ads en frío):** el 16:9 con barras negras desperdicia ~50% de la pantalla y baja el thumb-stop en tráfico frío. Usarlo en orgánico o en retargeting de "clase". Para ads en frío, adaptarlo a 9:16 con la pizarra arriba y la speaker abajo, o a 4:5.
 
 ## Cómo usar esta memoria
 - Al escribir un guion o un brief de edición, tomar esta lista como estándar de estilo por defecto.
